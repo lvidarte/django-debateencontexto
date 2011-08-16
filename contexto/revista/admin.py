@@ -86,7 +86,7 @@ class NotaAdmin(admin.ModelAdmin):
     inlines = (NotaAutoresInline, NotaArchivosInline)
     date_hierarchy = 'fecha'
     list_display = (
-        'id', 'fecha', 'hora', 'titulo',
+        'titulo', 'fecha', 'hora',
         'es_galeria', 'orden', 'get_estado'
     )
     list_filter = ('fecha', 'editor_creacion')

@@ -109,6 +109,7 @@ ROOT_URLCONF = 'contexto.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'revista/templates'),
+    os.path.join(PROJECT_PATH, 'admin/templates'),
 )
 
 INSTALLED_APPS = (
