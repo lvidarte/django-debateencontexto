@@ -154,7 +154,7 @@ class Autor(models.Model): # {{{
 
     @models.permalink
     def get_absolute_url(self):
-        return ('pagina12-diario-autores-autor', (), {'directorio': self.directorio})
+        return ('contexto-revista-notas-autor', (), {'slug': self.slug})
 
     def __unicode__(self):
         return "%s (%s)" % (
@@ -211,13 +211,11 @@ class Nota(models.Model): # {{{
     @models.permalink
     def get_absolute_url(self):
         #import pdb; pdb.set_trace()
-        slug = self.slug if self.slug else 'sin-titulo'
-        return ('pagina12-diario-nota', (), {
-                    'publicacion': self.publicacion.directorio,
-                    'seccion': self.seccion.directorio,
-                    'fecha': Fecha(self.fecha).amd(),
-                    'nota_id': self.id,
-                    'slug': slug})
+        return ('contexto-revista-nota', (), {
+                    'year': self.fecha.year,
+                    'month': self.fecha.month,
+                    'day': self.fecha.day,
+                    'slug': self.slug})
 
     def get_archivos(self):
         return self.notaarchivos_set.all()
@@ -304,6 +302,10 @@ class Tag(models.Model): # {{{
     get_en_menu.short_description = 'En menú'
     get_en_menu.boolean = True
     get_en_menu.admin_order_field = 'en_menu'
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('contexto-revista-notas-tag', (), {'slug': self.slug})
 
     def __unicode__(self):
         return self.nombre
