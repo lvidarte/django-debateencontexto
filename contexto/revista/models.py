@@ -17,6 +17,8 @@ TIPOS_CHOICES = (
     ('fotografo', 'Fotógrafo'),
     ('periodista', 'Periodista'),
     ('agencia', 'Agencia'),
+    ('corresponsal', 'Corresponsal'),
+    ('columnista', 'Columnista'),
     ('otro', 'Otro'),
 )
 
@@ -31,7 +33,7 @@ class Archivo(models.Model): # {{{
     file = models.FileField(upload_to='archivos/%Y/%m/%d', max_length=512,
         verbose_name='archivo')
     alt = models.CharField(max_length=256, blank=True,
-        verbose_name='alt')
+        verbose_name='alt', help_text='Descripción de la imagen (no videntes)')
     descripcion = models.TextField(blank=True,
         verbose_name='descripción')
     size = models.IntegerField(blank=True, default=0,
@@ -155,7 +157,10 @@ class Autor(models.Model): # {{{
         return ('pagina12-diario-autores-autor', (), {'directorio': self.directorio})
 
     def __unicode__(self):
-        return " ".join([x for x in (self.nombre, self.apellido) if x])
+        return "%s (%s)" % (
+            " ".join([x for x in (self.nombre, self.apellido) if x]),
+            self.tipo
+        )
 # }}}
 class Nota(models.Model): # {{{
     fecha = models.DateField(default=datetime.now())
@@ -247,7 +252,6 @@ class NotaArchivos(models.Model): # {{{
     archivo = models.ForeignKey('Archivo')
     epigrafe = models.TextField(blank=True,
         verbose_name='epígrafe')
-    nombre = models.CharField(max_length=128, blank=True)
     orden = models.IntegerField(default=0)
 
     class Meta:
@@ -291,7 +295,8 @@ class Tag(models.Model): # {{{
         help_text='¿Se muestra en el menú?')
     padre = models.OneToOneField('Tag', blank=True, null=True,
         help_text='¿De quién es submenú?')
-    orden = models.IntegerField(default=0)
+    orden = models.IntegerField(default=0,
+        help_text='Orden dentro del nivel en que se encuentra')
 
     def get_en_menu(self):
         return self.en_menu

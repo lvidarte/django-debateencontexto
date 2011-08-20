@@ -14,14 +14,14 @@ class ArchivoAdmin(admin.ModelAdmin):
     list_per_page = RESULTS_PER_PAGE
     filter_horizontal = ('tags',)
     list_display = (
-        'file', 'thumbnail', 'get_size', 'width', 'height',
+        'file', 'thumbnail', 'autor', 'get_size', 'width', 'height',
         'editor_creacion', 'get_fecha_creacion',
         'get_editor_modificacion', 'get_fecha_modificacion',
     )
     list_filter = ('fecha_creacion', 'editor_creacion', 'is_image')
     fieldsets = (
         (None, {
-            'fields': ('file', 'alt'),
+            'fields': ('file', 'alt', 'autor'),
         }),
         ('Descripción', {
             'classes': ('collapse',),
