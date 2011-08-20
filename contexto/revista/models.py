@@ -212,9 +212,9 @@ class Nota(models.Model): # {{{
     def get_absolute_url(self):
         #import pdb; pdb.set_trace()
         return ('contexto-revista-nota', (), {
-                    'year': self.fecha.year,
-                    'month': self.fecha.month,
-                    'day': self.fecha.day,
+                    'year': self.fecha.strftime('%Y'),
+                    'month': self.fecha.strftime('%m'),
+                    'day': self.fecha.strftime('%d'),
                     'slug': self.slug})
 
     def get_archivos(self):

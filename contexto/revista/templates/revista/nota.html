@@ -1,0 +1,17 @@
+{% extends "revista/container.html" %}
+
+{% block title %}{{ nota.titulo }}{% endblock %}
+
+{% block content %}
+	<article>
+		<header>
+			<h1>{{ nota.titulo }}</h1>
+			<time>{{ nota.fecha }}</time>
+		</header>
+		{{ nota.cuerpo }}
+		<footer>metadata</footer>
+		<nav>between articles</nav>
+	</article>
+{% endblock %}
+
+{# vim:set ft=htmldjango.html: #}
