@@ -16,7 +16,7 @@ urlpatterns = patterns('contexto.revista.views',
     (r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
         'nota', {}, 'contexto-revista-nota'),
 
-    (r'^$', 'index', {}, 'contexto-revista-index'),
+    (r'^$', 'portada', {}, 'contexto-revista-portada'),
 
 )
 
