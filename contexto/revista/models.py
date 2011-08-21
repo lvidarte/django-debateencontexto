@@ -8,6 +8,9 @@ from PIL import Image
 from mimetypes import guess_type
 from datetime import datetime
 
+from contexto.revista.managers import PublicManager
+
+
 SINO_CHOICES = (
     (True, 'Si'),
     (False, 'No'),
@@ -199,7 +202,7 @@ class Nota(models.Model): # {{{
         verbose_name='modificado el')
 
     # Manager
-    #objects = PublicManagerNota()
+    objects = PublicManager()
 
     def get_estado(self):
         return self.estado

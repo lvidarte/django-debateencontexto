@@ -1,0 +1,17 @@
+{% extends "revista/container.html" %}
+
+{% block title %}Revista contexto{% endblock %}
+
+{% block content %}
+    {% for nota in object_list %}
+	<article>
+		<header>
+			<h3><a href="{{ nota.get_absolute_url }}" title="">{{ nota.titulo }}</a></h3>
+			<time>{{ nota.fecha }}</time>
+		</header>
+		<p class="copete">{{ nota.copete }}</p>
+	</article>
+    {% endfor %}
+{% endblock %}
+
+{# vim:set ft=htmldjango.html: #}

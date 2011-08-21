@@ -99,10 +99,13 @@ class NotaAdmin(admin.ModelAdmin):
             'fields': ('fecha', 'hora'),
         }),
         (None, {
+            'fields': ('estado',),
+        }),
+        (None, {
             'fields': ('titulo', 'slug', 'copete', 'cuerpo'),
         }),
         (None, {
-            'fields': ('estado', 'jerarquia', 'es_galeria', 'orden'),
+            'fields': ('jerarquia', 'es_galeria', 'orden'),
         }),
         ('Tags', {
             'classes': ('collapse', ),
