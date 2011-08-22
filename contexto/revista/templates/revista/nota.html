@@ -3,6 +3,7 @@
 {% block title %}{{ nota.titulo }}{% endblock %}
 
 {% block content %}
+	{% load cache2 %}
 	<article>
 		<header>
 			<h1>{{ nota.titulo }}</h1>
@@ -11,9 +12,9 @@
 		{% if nota.archivos.count %}
         <div class="gallery">
 			{% for na in nota.notaarchivos_set.all %}
-			<span {% if not forloop.first %}style="display:none"{% endif %}>
+			<span>
 				<a href="{{ na.archivo.get_absolute_url }}" title="{{ na.epigrafe }}" rel="prettyPhoto[uno]">
-					<img src="{{ na.archivo.get_absolute_url }}" alt="" />
+					<img src="{% if forloop.first %}{{ na.archivo.get_absolute_url|thumb:200 }}{% else %}{{ na.archivo.get_absolute_url|thumb:50 }}{% endif %}" alt="" />
 				</a>
 			</span>
 			{% endfor %}
