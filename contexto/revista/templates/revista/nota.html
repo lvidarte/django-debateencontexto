@@ -8,9 +8,31 @@
 			<h1>{{ nota.titulo }}</h1>
 			<time>{{ nota.fecha }}</time>
 		</header>
+		{% if nota.archivos.count %}
+        <div class="gallery">
+			{% for na in nota.notaarchivos_set.all %}
+			<span {% if not forloop.first %}style="display:none"{% endif %}>
+				<a href="{{ na.archivo.get_absolute_url }}" title="{{ na.epigrafe }}" rel="prettyPhoto[uno]">
+					<img src="{{ na.archivo.get_absolute_url }}" alt="" />
+				</a>
+			</span>
+			{% endfor %}
+        </div>
+		<script>
+		$("a[rel^='prettyPhoto']").prettyPhoto({
+			theme: 'dark_square',
+			social_tools: '',
+			opacity: 0.9,
+			show_title: false,
+			allow_resize: false
+		});
+		</script>
+		{% endif %}
+		<div style="clear:both">
 		{{ nota.cuerpo }}
 		<footer>metadata</footer>
 		<nav>between articles</nav>
+		</div>
 	</article>
 {% endblock %}
 

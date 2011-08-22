@@ -111,7 +111,7 @@ class Archivo(models.Model): # {{{
     thumbnail.allow_tags = True
 
     def get_absolute_url(self):
-        return self.file.url
+        return '/static' + self.file.url
 
     def save(self, force_insert=False, force_update=False):
         setattr(self, 'size', self.file.size) 
