@@ -160,10 +160,7 @@ class Autor(models.Model): # {{{
         return ('contexto-revista-notas-autor', (), {'slug': self.slug})
 
     def __unicode__(self):
-        return "%s (%s)" % (
-            " ".join([x for x in (self.nombre, self.apellido) if x]),
-            self.tipo
-        )
+        return " ".join([x for x in (self.nombre, self.apellido) if x])
 # }}}
 class Nota(models.Model): # {{{
     fecha = models.DateField(default=datetime.now())
@@ -221,7 +218,26 @@ class Nota(models.Model): # {{{
                     'slug': self.slug})
 
     def get_archivos(self):
-        return self.notaarchivos_set.all()
+        if not getattr(self, '_archivos', False):
+            self._archivos = []
+            for na in self.notaarchivos_set.order_by('orden'):
+                archivo = na.archivo
+                archivo.epigrafe = na.epigrafe
+                archivo.orden = na.orden
+                self._archivos.append(archivo)
+        return self._archivos
+
+    @property
+    def fotos_count(self):
+        return len(self.get_fotos())
+
+    def get_fotos(self):
+        fotos = []
+        for archivo in self.get_archivos():
+            if archivo.es_imagen:
+                fotos.append(archivo)
+        return fotos
+
 
     def get_anterior(self):
         notas = Nota.objects.filter(
