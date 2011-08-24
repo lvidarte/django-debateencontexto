@@ -73,6 +73,13 @@ class NotaAutoresInline(admin.TabularInline):
     model = NotaAutores
     extra = 0
 
+    class Media:
+        js = (settings.STATIC_URL + 'media/uedit/uedit.js',
+              settings.STATIC_URL + 'media/uedit/uedit.ui.complete.js')
+        css = {'screen': (settings.STATIC_URL + 'media/css/admin.css',
+                          settings.STATIC_URL + 'media/uedit/uedit.ui.css',
+                          settings.STATIC_URL + 'media/uedit/uedit.ui.complete.css')}
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'autor':
             kwargs['queryset'] = Autor.objects.order_by('apellido', 'nombre')
