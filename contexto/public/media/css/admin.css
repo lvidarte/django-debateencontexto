@@ -1,0 +1,13 @@
+/*
+ * Admin styles
+ */
+textarea#id_copete {
+	height: 100px;
+	width: 580px; /* mismo que textarea uedit */
+}
+
+textarea#id_copete,
+textarea#id_cuerpo,
+input#id_titulo {
+	font-size: 1.5em;
+}
