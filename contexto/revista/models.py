@@ -168,16 +168,18 @@ class Nota(models.Model): # {{{
     autores = models.ManyToManyField('Autor', blank=True, null=True,
         through='NotaAutores')
     titulo = models.CharField(max_length=256, blank=True,
-        verbose_name='Título')
+        verbose_name='título')
     slug = models.SlugField(max_length=256, unique_for_date='fecha',
         help_text='URL de la nota (debería ser el título de la nota)')
+    copete_markdown = models.TextField(blank=True, verbose_name='copete')
     copete = models.TextField(blank=True)
+    cuerpo_markdown = models.TextField(blank=True, verbose_name='cuerpo')
     cuerpo = models.TextField(blank=True)
     tags = models.ManyToManyField('Tag', blank=True, null=True)
     archivos = models.ManyToManyField('Archivo', blank=True, null=True,
         through='NotaArchivos')
     es_galeria = models.BooleanField(default=False, choices=SINO_CHOICES,
-        verbose_name='Es galería')
+        verbose_name='es galería')
     orden = models.IntegerField(default=0)
     estado = models.BooleanField(default=False,
         choices=SINO_CHOICES, verbose_name='visible')
@@ -224,6 +226,8 @@ class Nota(models.Model): # {{{
                 archivo = na.archivo
                 archivo.epigrafe = na.epigrafe
                 archivo.orden = na.orden
+                archivo.nombre = na.nombre
+                archivo.en_galeria = na.en_galeria
                 self._archivos.append(archivo)
         return self._archivos
 
@@ -256,6 +260,9 @@ class Nota(models.Model): # {{{
             return notas[0]
 
     def save(self, force_insert=False, force_update=False):
+        import markdown
+        self.copete = markdown.markdown(self.copete_markdown)
+        self.cuerpo = markdown.markdown(self.cuerpo_markdown)
         if self.slug == '':
             self.slug = 'sin-titulo'
         super(Nota, self).save(force_insert, force_update)
@@ -267,8 +274,11 @@ class Nota(models.Model): # {{{
 class NotaArchivos(models.Model): # {{{
     nota = models.ForeignKey('Nota')
     archivo = models.ForeignKey('Archivo')
+    nombre = models.CharField(max_length=64)
     epigrafe = models.TextField(blank=True,
         verbose_name='epígrafe')
+    en_galeria = models.BooleanField(default=True, choices=SINO_CHOICES,
+        verbose_name='en galería')
     orden = models.IntegerField(default=0)
 
     class Meta:
@@ -303,8 +313,7 @@ class NotaAutores(models.Model): # {{{
         return ", ".join((self.autor.apellido, self.autor.nombre))
 # }}}
 class Tag(models.Model): # {{{
-    nombre = models.CharField(max_length=128,
-        verbose_name='nombre')
+    nombre = models.CharField(max_length=128)
     slug = models.SlugField(max_length=256, unique=True,
         help_text='URL del listado de notas relacionadas con el tag')
     en_menu = models.BooleanField(default=False,

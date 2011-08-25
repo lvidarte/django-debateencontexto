@@ -16,12 +16,12 @@
                         {% if field.is_readonly %}
                             <p>{{ field.contents }}</p>
                         {% else %}
-                            {% if field.field.name == 'cuerpo' %}
+                            {% if field.field.name == 'cuerpo_markdown' %}
 <div style="clear:both;margin-left:106px">
 <ul style="margin-left:0;padding-left:0" id="uedit_button_strip"></ul>
-<textarea class="uedit_complete_textarea" id="id_cuerpo" name="cuerpo" cols=20 rows=2>{{ field.field.value }}</textarea>
+<textarea class="uedit_complete_textarea" id="id_cuerpo_markdown" name="cuerpo_markdown" cols=20 rows=2>{% if field.field.value %}{{ field.field.value }}{% endif %}</textarea>
 <script>
-var uedit_textarea = document.getElementById("id_cuerpo");
+var uedit_textarea = document.getElementById("id_cuerpo_markdown");
 var uedit_button_strip = document.getElementById("uedit_button_strip");
 var ueditorInterface = ueditInterface(uedit_textarea, uedit_button_strip);
 </script>

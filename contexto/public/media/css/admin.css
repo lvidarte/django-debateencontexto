@@ -1,13 +1,21 @@
 /*
  * Admin styles
  */
-textarea#id_copete {
+textarea#id_copete_markdown {
 	height: 100px;
 	width: 580px; /* mismo que textarea uedit */
 }
 
-textarea#id_copete,
-textarea#id_cuerpo,
+textarea#id_copete_markdown,
+textarea#id_cuerpo_markdown,
 input#id_titulo {
 	font-size: 1.5em;
+}
+
+.epigrafe textarea {
+	height: 100px;
+	width: 300px;
+}
+.nombre input {
+	width: 100px;
 }

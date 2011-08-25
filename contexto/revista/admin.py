@@ -109,7 +109,8 @@ class NotaAdmin(admin.ModelAdmin):
             'fields': ('estado',),
         }),
         (None, {
-            'fields': ('titulo', 'slug', 'copete', 'cuerpo'),
+            'fields': ('titulo', 'slug',
+                       'copete_markdown', 'cuerpo_markdown'),
         }),
         (None, {
             'fields': ('jerarquia', 'es_galeria', 'orden'),
