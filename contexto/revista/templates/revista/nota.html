@@ -9,20 +9,19 @@
 			<h1>{{ nota.titulo }}</h1>
 			<time>{{ nota.fecha }}</time>
 		</header>
-		{% if nota.fotos_count %}
+		{% if nota.imagenes_en_galeria_count %}
+        <h2>Galería ({{ nota.imagenes_en_galeria_count }} fotos)</h2>
         <div class="gallery">
-            Fotos: {{ nota.fotos_count }}
-			{% for foto in nota.get_fotos %}
+			{% for img in nota.get_imagenes %}
+            {% if img.en_galeria %}
 			<span>
-				<a href="{{ foto.get_absolute_url }}" title="{{ foto.epigrafe }}{% if foto.autor %} Autor: {{ foto.autor }}{% endif %}" rel="prettyPhoto[uno]">
-					<img src="{% if forloop.first %}{{ foto.get_absolute_url|thumb:200 }}{% else %}{{ foto.get_absolute_url|thumb:50 }}{% endif %}" alt="{{ foto.alt }}" />
+				<a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="prettyPhoto[uno]">
+					<img src="{% if forloop.first %}{{ img.get_absolute_url|thumb:200 }}{% else %}{{ img.get_absolute_url|thumb:50 }}{% endif %}" alt="{{ img.alt }}" />
 				</a>
 			</span>
+            {% endif %}
 			{% endfor %}
         </div>
-		<script>
-		$("a[rel^='prettyPhoto']").prettyPhoto();
-		</script>
 		{% endif %}
 		<div style="clear:both">
 		{{ nota.cuerpo|safe }}

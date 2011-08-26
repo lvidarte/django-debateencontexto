@@ -3,4 +3,6 @@ $(document).ready(function() {
 		$('#container').toggleClass('grid');
 		event.preventDefault();
 	});
+
+	$("a[rel^='prettyPhoto']").prettyPhoto();
 });

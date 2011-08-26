@@ -9,10 +9,11 @@ from mimetypes import guess_type
 from datetime import datetime
 
 from contexto.revista.managers import PublicManager
+from contexto.revista.parser import parse_tags
 
 
 SINO_CHOICES = (
-    (True, 'Si'),
+    (True, 'Sí'),
     (False, 'No'),
 )
 
@@ -173,8 +174,8 @@ class Nota(models.Model): # {{{
         help_text='URL de la nota (debería ser el título de la nota)')
     copete_markdown = models.TextField(blank=True, verbose_name='copete')
     copete = models.TextField(blank=True)
-    cuerpo_markdown = models.TextField(blank=True, verbose_name='cuerpo')
-    cuerpo = models.TextField(blank=True)
+    cuerpo_markdown = models.TextField(blank=True)
+    cuerpo_html = models.TextField(blank=True)
     tags = models.ManyToManyField('Tag', blank=True, null=True)
     archivos = models.ManyToManyField('Archivo', blank=True, null=True,
         through='NotaArchivos')
@@ -199,6 +200,10 @@ class Nota(models.Model): # {{{
         related_name='nota_modificado_por', verbose_name='modificado por')
     fecha_modificacion = models.DateTimeField(auto_now=True,
         verbose_name='modificado el')
+
+    @property
+    def cuerpo(self):
+        return parse_tags(self.cuerpo_html, self.get_imagenes())
 
     # Manager
     objects = PublicManager()
@@ -231,17 +236,22 @@ class Nota(models.Model): # {{{
                 self._archivos.append(archivo)
         return self._archivos
 
-    @property
-    def fotos_count(self):
-        return len(self.get_fotos())
-
-    def get_fotos(self):
-        fotos = []
+    def get_imagenes(self):
+        imagenes = []
         for archivo in self.get_archivos():
             if archivo.es_imagen:
-                fotos.append(archivo)
-        return fotos
+                imagenes.append(archivo)
+        return imagenes
 
+    def imagenes_count(self):
+        return len(self.get_imagenes())
+
+    def imagenes_en_galeria_count(self):
+        total = 0
+        for imagen in self.get_imagenes():
+            if imagen.en_galeria:
+                total += 1
+        return total
 
     def get_anterior(self):
         notas = Nota.objects.filter(
@@ -262,7 +272,7 @@ class Nota(models.Model): # {{{
     def save(self, force_insert=False, force_update=False):
         import markdown
         self.copete = markdown.markdown(self.copete_markdown)
-        self.cuerpo = markdown.markdown(self.cuerpo_markdown)
+        self.cuerpo_html = markdown.markdown(self.cuerpo_markdown)
         if self.slug == '':
             self.slug = 'sin-titulo'
         super(Nota, self).save(force_insert, force_update)
