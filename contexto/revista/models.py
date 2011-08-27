@@ -329,7 +329,7 @@ class Tag(models.Model): # {{{
     en_menu = models.BooleanField(default=False,
         choices=SINO_CHOICES, verbose_name='En menú?',
         help_text='¿Se muestra en el menú?')
-    padre = models.OneToOneField('Tag', blank=True, null=True,
+    padre = models.ForeignKey('Tag', blank=True, null=True,
         help_text='¿De quién es submenú?')
     orden = models.IntegerField(default=0,
         help_text='Orden dentro del nivel en que se encuentra')

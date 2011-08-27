@@ -14,6 +14,7 @@
 {% endblock %}
 
 {% block container %}
+	{% load revista %}
 
 	<header id="header" class="span-24 last">
 		<a href="" title="guías" id="grid">G</a>
@@ -21,10 +22,7 @@
 	</header>
 
 	<nav id="menu" class="span-24 last">
-		<ul>
-			<li>item 1</li>
-			<li>item 2</li>
-		</ul>
+		{% bloque_menu %}
 	</nav>
 
 	<section id="content" class="span-24 last">

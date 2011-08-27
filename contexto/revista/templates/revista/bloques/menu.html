@@ -1,0 +1,21 @@
+
+<ul>
+{% for menu in menus %}
+	<li>{{ menu|first }}</li>
+{% endfor %}
+</ul>
+
+{% for menu in menus %}
+	{% if menu|length > 1 %}
+		{% for tag in menu %}
+			{% if forloop.first %}
+<ul id="submenu_{{ tag.slug }}">
+			{% else %}
+	<li>{{ tag }}</li>
+			{% endif %}
+		{% endfor %}
+</ul>
+	{% endif %}
+{% endfor %}
+
+{# vim:set ft=htmldjango.html: #}
