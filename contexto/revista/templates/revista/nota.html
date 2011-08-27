@@ -10,18 +10,18 @@
 			<time>{{ nota.fecha }}</time>
 		</header>
 		{% if nota.imagenes_en_galeria_count %}
-        <h2>Galería ({{ nota.imagenes_en_galeria_count }} fotos)</h2>
-        <div class="gallery">
+		<h2>Galería ({{ nota.imagenes_en_galeria_count }} fotos)</h2>
+		<div class="gallery">
 			{% for img in nota.get_imagenes %}
-            {% if img.en_galeria %}
+			{% if img.en_galeria %}
 			<span>
 				<a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="prettyPhoto[uno]">
 					<img src="{% if forloop.first %}{{ img.get_absolute_url|thumb:200 }}{% else %}{{ img.get_absolute_url|thumb:50 }}{% endif %}" alt="{{ img.alt }}" />
 				</a>
 			</span>
-            {% endif %}
+			{% endif %}
 			{% endfor %}
-        </div>
+		</div>
 		{% endif %}
 		<div style="clear:both">
 		{{ nota.cuerpo|safe }}
