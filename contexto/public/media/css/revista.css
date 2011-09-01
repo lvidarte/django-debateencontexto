@@ -2,15 +2,16 @@
  * Revista contexto styles
  */
 
-#grid {
+#tools {
 	position: fixed;
 	display: block;
-	padding: 3px;
-	top: 20px;
-	left: 0;
+	height: 20px;
+	width: 80px;
+	top: 40px;
+	left: -83px;
+	padding: 5px;
+	text-align: center;
 	background: #E8EFFB;
-	color: white;
-	text-decoration: none;
 	/* BEGIN radius */
 	-moz-border-bottom-right-radius: 4px;
 	-khtml-border-bottom-right-radius:4px;
