@@ -2,6 +2,7 @@
  * Revista contexto styles
  */
 
+/* {{{ #tools */
 #tools {
 	position: fixed;
 	display: block;
@@ -23,4 +24,57 @@
 	border-top-right-radius: 4px;
 	/* END radius */
 }
+/* }}} */
 
+body {
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-size: 16px;
+}
+
+a {
+	text-decoration: none;
+	color: #3D79D0;
+}
+a:link {
+}
+a:visited {
+}
+a:hover {
+}
+a:active {
+}
+
+strong, b {
+	font-weight: bolder;
+}
+
+#header {
+	margin-top: 40px;
+}
+
+.main-menu {
+	font-weight: 600;
+}
+
+	.main-menu ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.main-menu li {
+		display: inline;
+		margin-right: 1em;
+	}
+
+	.main-menu .menu a {
+		color: #CCC;
+	}
+	
+	.main-menu .menu a.selected {
+		color: #3D79D0;
+	}
+
+	.main-menu .submenu a {
+		color: #888;
+	}

@@ -30,9 +30,11 @@ $(document).ready(function() {
 	$('#menu li > a').click(function(event) {
 		event.preventDefault();
 		$('.submenu').hide();
+		$('#menu li > a').removeClass('selected');
 		$('#' + this.getAttribute('rel')).show();
+		$(this).addClass('selected');
 	});
-	$('.submenu').hide();
-	$('#' + submenu).show();
+	$('#menu_' + menu_item).addClass('selected');
+	$('#submenu_' + menu_item).show();
 
 });

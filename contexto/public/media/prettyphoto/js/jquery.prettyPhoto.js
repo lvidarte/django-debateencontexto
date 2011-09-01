@@ -12,8 +12,8 @@
 			animation_speed: 'fast', /* fast/slow/normal */
 			slideshow: 5000, /* false OR interval time in ms */
 			autoplay_slideshow: false, /* true/false */
-			opacity: 0.90, /* Value between 0 and 1 */
-			show_title: true, /* true/false */
+			opacity: 0.80, /* Value between 0 and 1 */
+			show_title: false, /* true/false */
 			allow_resize: false, /* Resize the photos bigger than viewport. true/false */
 			default_width: 500,
 			default_height: 344,
