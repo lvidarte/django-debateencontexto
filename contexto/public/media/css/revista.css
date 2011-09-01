@@ -1,10 +1,6 @@
 /*
  * Revista contexto styles
  */
-.grid {
-	background: url(/static/media/css/blueprint/grid.png);
-}
-
 
 #grid {
 	position: fixed;

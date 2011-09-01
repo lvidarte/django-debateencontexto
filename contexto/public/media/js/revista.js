@@ -4,7 +4,7 @@ $(document).ready(function() {
 	 * Guías
 	 */
 	$('#grid').click(function(event) {
-		$('#container').toggleClass('grid');
+		$('.container').toggleClass('showgrid');
 		event.preventDefault();
 	});
 
