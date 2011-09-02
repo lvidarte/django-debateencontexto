@@ -27,10 +27,16 @@
 /* }}} */
 /* {{{ Colores */
 .azul-oscuro { color: #182E4F; }
+.bg-azul-oscuro { background-color: #182E4F; }
 .azul-mediooscuro { color: #29528F; }
+.bg-azul-mediooscuro { background-color: #29528F; }
 .azul-medio { color: #3D79D0; }
+.bg-azul-medio { background-color: #3D79D0; }
 .azul-medioclaro { color: #A8CBFF; }
+.bg-azul-medioclaro { background-color: #A8CBFF; }
 .azul-claro { color: #F0F4FA; }
+.bg-azul-claro { background-color: #F0F4FA; }
+.blanco { color: #FFF; }
 /* }}} */
 /* Tags {{{ */
 body {
