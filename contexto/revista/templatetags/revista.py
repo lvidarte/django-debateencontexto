@@ -13,6 +13,7 @@ def bloque_menu():
     tags = Tag.objects.filter(en_menu=True)
     tags = tags.order_by('padre', 'orden')
 
+    menu = []
     menus = []
     for tag in tags:
         menu = []

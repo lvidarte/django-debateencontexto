@@ -233,6 +233,7 @@ class Nota(models.Model): # {{{
                 archivo.orden = na.orden
                 archivo.nombre = na.nombre
                 archivo.en_galeria = na.en_galeria
+                archivo.en_titular = na.en_titular
                 self._archivos.append(archivo)
         return self._archivos
 
@@ -252,6 +253,11 @@ class Nota(models.Model): # {{{
             if imagen.en_galeria:
                 total += 1
         return total
+
+    def get_imagen_titular(self):
+        for imagen in self.get_imagenes():
+            if imagen.en_titular:
+                return imagen
 
     def get_anterior(self):
         notas = Nota.objects.filter(
@@ -289,6 +295,7 @@ class NotaArchivos(models.Model): # {{{
         verbose_name='epígrafe')
     en_galeria = models.BooleanField(default=True, choices=SINO_CHOICES,
         verbose_name='en galería')
+    en_titular = models.BooleanField(default=False, choices=SINO_CHOICES)
     orden = models.IntegerField(default=0)
 
     class Meta:
