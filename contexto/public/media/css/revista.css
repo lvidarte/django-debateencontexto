@@ -1,8 +1,8 @@
-/*
+/**
  * Revista contexto styles
  */
 
-/* {{{ #tools */
+/* {{{ Tools */
 #tools {
 	position: fixed;
 	display: block;
@@ -25,7 +25,14 @@
 	/* END radius */
 }
 /* }}} */
-
+/* {{{ Colores */
+.azul-oscuro { color: #182E4F; }
+.azul-mediooscuro { color: #29528F; }
+.azul-medio { color: #3D79D0; }
+.azul-medioclaro { color: #A8CBFF; }
+.azul-claro { color: #F0F4FA; }
+/* }}} */
+/* Tags {{{ */
 body {
 	font-family: 'Open Sans', Arial, sans-serif;
 	font-size: 16px;
@@ -35,26 +42,20 @@ a {
 	text-decoration: none;
 	color: #3D79D0;
 }
-a:link {
-}
-a:visited {
-}
-a:hover {
-}
-a:active {
-}
+a:link {}
+a:visited {}
+a:hover { color: #29528F; }
+a:active {}
 
-strong, b {
-	font-weight: bolder;
-}
-
+strong, b { font-weight: bolder; }
+/* }}} */
+/* {{{ Encabezado */
 #header {
 	margin-top: 40px;
 }
-
-.main-menu {
-	font-weight: 600;
-}
+/* }}} */
+/* {{{ Menú */
+.main-menu { font-weight: 600; }
 
 	.main-menu ul {
 		list-style-type: none;
@@ -78,3 +79,11 @@ strong, b {
 	.main-menu .submenu a {
 		color: #888;
 	}
+/* }}} */
+/* {{{ Pie */
+#footer {
+	background: #29528F;
+	color: #FFF;
+}
+/* }}} */
+
