@@ -79,7 +79,7 @@
 {
     position:absolute;
     display: block;   
-    background: transparent url(/static/media/uedit/gfx/strip.png) 0px -64px no-repeat;
+    background: transparent url(/static/uedit/gfx/strip.png) 0px -64px no-repeat;
     height: 40px;
     width: 101px;
     top: 25px;
@@ -91,7 +91,7 @@
 {
     position:absolute;
     display: block;   
-    background: transparent url(/static/media/uedit/gfx/strip.png) -101px -64px no-repeat;
+    background: transparent url(/static/uedit/gfx/strip.png) -101px -64px no-repeat;
     height: 40px;
     width: 80px;
     top: 25px;

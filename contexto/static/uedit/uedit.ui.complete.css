@@ -29,7 +29,7 @@ li.uedit_complete_button
 li.uedit_complete_button a
 {
     display: block;   
-    background: transparent url(/static/media/uedit/gfx/strip.png) 0 0 no-repeat;
+    background: transparent url(/static/uedit/gfx/strip.png) 0 0 no-repeat;
     height: 32px;
 }
 

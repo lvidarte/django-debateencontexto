@@ -663,7 +663,7 @@ var Uedit = function(){
         form.content.style.left = ((innerWidth/2) - (width/2)) + 'px';
         
         form.closeButton = document.createElement('a');
-        form.closeButton.innerHTML = '<img src="/static/media/uedit/gfx/close_icon.png" />';
+        form.closeButton.innerHTML = '<img src="/static/uedit/gfx/close_icon.png" />';
         form.closeButton.className = 'uedit_ui_form_close';
         form.closeButton.onclick = (function(){
             document.body.removeChild(form.modalOverlay);
@@ -840,7 +840,7 @@ var Uedit = function(){
         
         form.okButton = document.createElement('a');
         form.okButton.className = "uedit_ui_form_button_ok";
-        form.okButton.innerHTML = "Insert <img src='/static/media/uedit/gfx/done-icon.png' />";
+        form.okButton.innerHTML = "Insert <img src='/static/uedit/gfx/done-icon.png' />";
         
         form.okButton.onmouseover = function(){
 			form.okButton.style.color = "#DFC21D";
@@ -934,7 +934,7 @@ var Uedit = function(){
             
             form.okButton = document.createElement('a');
             form.okButton.className = "uedit_ui_form_button_ok";
-            form.okButton.innerHTML = "Insert <img src='/static/media/uedit/gfx/done-icon.png' />";
+            form.okButton.innerHTML = "Insert <img src='/static/uedit/gfx/done-icon.png' />";
             
             form.okButton.onmouseover = function(){
 				form.okButton.style.color = "#DFC21D";
@@ -1030,7 +1030,7 @@ var Uedit = function(){
                 
         form.okButton = document.createElement('a');
         form.okButton.className = "uedit_ui_form_button_ok";
-        form.okButton.innerHTML = "Insert <img src='/static/media/uedit/gfx/done-icon.png' />";
+        form.okButton.innerHTML = "Insert <img src='/static/uedit/gfx/done-icon.png' />";
             
         form.okButton.onmouseover = function(){
 	    	form.okButton.style.color = "#DFC21D";
