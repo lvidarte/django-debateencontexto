@@ -1,0 +1,5 @@
+virtualenv --no-site-packages --python=python2.6 revista-contexto
+
+sudo apt-get install python2.6-dev libjpeg8-dev
+sudo apt-get install libmysqlclient-dev
+pip install django pil markdown MySQL-python
