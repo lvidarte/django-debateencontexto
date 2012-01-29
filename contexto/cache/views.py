@@ -9,7 +9,7 @@ from django.http import HttpResponse
 
 
 def img(request, url, width): # {{{
-    img_path = os.path.join(settings.MEDIA_ROOT, url[1:])
+    img_path = os.path.join(settings.MEDIA_ROOT, url[len('/media/'):])
     try:
         image = Image.open(img_path)
         w, h = image.size
