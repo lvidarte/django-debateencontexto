@@ -1,4 +1,5 @@
 *.pyc
 *.bk
 data.sqlite3
-contexto/public/archivos
+contexto/manage.py
+contexto/settings.py
