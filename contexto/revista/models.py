@@ -36,13 +36,13 @@ JERARQUIA_CHOICES = (
 class Archivo(models.Model): # {{{
     file = models.FileField(upload_to='%Y/%m/%d', max_length=512,
         verbose_name='archivo')
-    alt = models.CharField(max_length=256, blank=True,
+    alt = models.CharField(max_length=255, blank=True,
         verbose_name='alt', help_text='Descripción de la imagen (no videntes)')
     descripcion = models.TextField(blank=True,
         verbose_name='descripción')
     size = models.IntegerField(blank=True, default=0,
         verbose_name='tamaño')
-    mime = models.CharField(max_length=256, blank=True)
+    mime = models.CharField(max_length=255, blank=True)
     width = models.IntegerField(blank=True, default=0,
         verbose_name='ancho')
     height = models.IntegerField(blank=True, default=0,
@@ -132,12 +132,12 @@ class Archivo(models.Model): # {{{
         return self.file.name
 # }}}
 class Autor(models.Model): # {{{
-    nombre = models.CharField(max_length=256)
-    apellido = models.CharField(max_length=256, blank=True)
-    slug = models.SlugField(max_length=256, unique=True,
+    nombre = models.CharField(max_length=255)
+    apellido = models.CharField(max_length=255, blank=True)
+    slug = models.SlugField(max_length=255, unique=True,
         help_text='URL del listado de notas del autor')
     email = models.EmailField(max_length=128, blank=True)
-    web = models.URLField(max_length=256, blank=True,
+    web = models.URLField(max_length=255, blank=True,
         help_text='Blog/página web personal')
     comentario = models.TextField(max_length=512, blank=True)
     foto = models.OneToOneField('Archivo', blank=True, null=True, related_name='+')
@@ -168,9 +168,9 @@ class Nota(models.Model): # {{{
     hora = models.TimeField(default=datetime.now())
     autores = models.ManyToManyField('Autor', blank=True, null=True,
         through='NotaAutores')
-    titulo = models.CharField(max_length=256, blank=True,
+    titulo = models.CharField(max_length=255, blank=True,
         verbose_name='título')
-    slug = models.SlugField(max_length=256, unique_for_date='fecha',
+    slug = models.SlugField(max_length=255, unique_for_date='fecha',
         help_text='URL de la nota (debería ser el título de la nota)')
     copete_markdown = models.TextField(blank=True, verbose_name='copete')
     copete = models.TextField(blank=True)
@@ -331,7 +331,7 @@ class NotaAutores(models.Model): # {{{
 # }}}
 class Tag(models.Model): # {{{
     nombre = models.CharField(max_length=128)
-    slug = models.SlugField(max_length=256, unique=True,
+    slug = models.SlugField(max_length=255, unique=True,
         help_text='URL del listado de notas relacionadas con el tag')
     en_menu = models.BooleanField(default=False,
         choices=SINO_CHOICES, verbose_name='En menú?',
