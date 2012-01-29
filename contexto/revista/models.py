@@ -34,7 +34,7 @@ JERARQUIA_CHOICES = (
 
 
 class Archivo(models.Model): # {{{
-    file = models.FileField(upload_to='archivos/%Y/%m/%d', max_length=512,
+    file = models.FileField(upload_to='%Y/%m/%d', max_length=512,
         verbose_name='archivo')
     alt = models.CharField(max_length=256, blank=True,
         verbose_name='alt', help_text='Descripción de la imagen (no videntes)')
@@ -106,13 +106,13 @@ class Archivo(models.Model): # {{{
 
     def thumbnail(self):
         if self.is_image:
-            return u'<img src="/static%s" width="100px" />' % self.file.url
+            return u'<img src="%s" width="100px" />' % self.get_absolute_url()
 
     thumbnail.short_description = 'miniatura'
     thumbnail.allow_tags = True
 
     def get_absolute_url(self):
-        return '/static' + self.file.url
+        return self.file.url
 
     def save(self, force_insert=False, force_update=False):
         setattr(self, 'size', self.file.size) 

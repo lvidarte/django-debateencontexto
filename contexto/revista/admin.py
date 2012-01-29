@@ -74,11 +74,11 @@ class NotaAutoresInline(admin.TabularInline):
     extra = 0
 
     class Media:
-        js = (settings.STATIC_URL + 'media/uedit/uedit.js',
-              settings.STATIC_URL + 'media/uedit/uedit.ui.complete.js')
-        css = {'screen': (settings.STATIC_URL + 'media/css/admin.css',
-                          settings.STATIC_URL + 'media/uedit/uedit.ui.css',
-                          settings.STATIC_URL + 'media/uedit/uedit.ui.complete.css')}
+        js = (settings.STATIC_URL + 'uedit/uedit.js',
+              settings.STATIC_URL + 'uedit/uedit.ui.complete.js')
+        css = {'screen': (settings.STATIC_URL + 'css/admin.css',
+                          settings.STATIC_URL + 'uedit/uedit.ui.css',
+                          settings.STATIC_URL + 'uedit/uedit.ui.complete.css')}
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'autor':
