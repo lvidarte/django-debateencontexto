@@ -1,5 +1,17 @@
-virtualenv --no-site-packages --python=python2.6 revista-contexto
+virtualenv --no-site-packages --python=python2.7 dev_env
 
-sudo apt-get install python2.6-dev libjpeg8-dev
+sudo apt-get install python2.6-dev
+sudo apt-get install libjpeg8 libjpeg8-dev libfreetype6 libfreetype6-dev
 sudo apt-get install libmysqlclient-dev
+
+
+FOR PIL:
+    It turns out that the APT installations put the libraries under
+    /usr/lib/x86_64-linux-gnu and PIL will search for them in /usr/lib/
+    So you have to create symlinks for PIL to see them.
+
+    sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib
+    sudo ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib
+    sudo ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib
+
 pip install django pil markdown MySQL-python

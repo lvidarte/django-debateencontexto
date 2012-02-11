@@ -3,3 +3,5 @@
 data.sqlite3
 contexto/manage.py
 contexto/settings.py
+dev_env
+media
