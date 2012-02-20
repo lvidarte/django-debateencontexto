@@ -3,32 +3,32 @@
 {% block title %}{{ nota.titulo }}{% endblock %}
 
 {% block content %}
-	{% load cache2 %}
-	<article>
-		<header>
-			<h1>{{ nota.titulo }}</h1>
-			<time>{{ nota.fecha }}</time>
-		</header>
-		{% if nota.imagenes_en_galeria_count %}
-		<h5>Galería ({{ nota.imagenes_en_galeria_count }} foto{{ nota.imagenes_en_galeria_count|pluralize }})</h5>
-		<div class="gallery">
-			{% for img in nota.get_imagenes %}
-			{% if img.en_galeria %}
-			<span>
-				<a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="{% if nota.imagenes_en_galeria_count > 1 %}galeria[nota]{% else %}galeria{% endif %}">
-					<img src="{% if forloop.first %}{{ img.get_absolute_url|thumb:200 }}{% else %}{{ img.get_absolute_url|thumb:50 }}{% endif %}" alt="{{ img.alt }}" />
-				</a>
-			</span>
-			{% endif %}
-			{% endfor %}
-		</div>
-		{% endif %}
-		<div style="clear:both">
-		{{ nota.cuerpo|safe }}
-		<footer>metadata</footer>
-		<nav>between articles</nav>
-		</div>
-	</article>
+    {% load cache2 %}
+    <article>
+        <header>
+            <h1>{{ nota.titulo }}</h1>
+            <time>{{ nota.fecha }}</time>
+        </header>
+        {% if nota.imagenes_en_galeria_count %}
+        <h5>Galería ({{ nota.imagenes_en_galeria_count }} foto{{ nota.imagenes_en_galeria_count|pluralize }})</h5>
+        <div class="gallery">
+            {% for img in nota.get_imagenes %}
+            {% if img.en_galeria %}
+            <span>
+                <a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="{% if nota.imagenes_en_galeria_count > 1 %}galeria[nota]{% else %}galeria{% endif %}">
+                    <img src="{% if forloop.first %}{{ img.get_absolute_url|thumb:200 }}{% else %}{{ img.get_absolute_url|thumb:50 }}{% endif %}" alt="{{ img.alt }}" />
+                </a>
+            </span>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div style="clear:both">
+        {{ nota.cuerpo|safe }}
+        <footer>metadata</footer>
+        <nav>between articles</nav>
+        </div>
+    </article>
 {% endblock %}
 
-{# vim:set ft=htmldjango.html: #}
+{# vim:set ft=htmldjango.html expandtab: #}

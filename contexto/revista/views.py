@@ -5,7 +5,7 @@ from django.http import HttpResponse, Http404
 from django.template import RequestContext
 from django.views.generic import list_detail
 
-from contexto.revista.models import Nota, Pagina
+from contexto.revista.models import Nota, Pagina, Tag
 
 def portada(request, page=0, paginate_by=20, **kwargs):
     return list_detail.object_list(
@@ -18,10 +18,30 @@ def portada(request, page=0, paginate_by=20, **kwargs):
     )
 
 def listado_tags(request):
-    return HttpResponse('listado de tags')
+    query = """ SELECT t.id, t.nombre, t.slug
+                FROM revista_tag AS t
+                INNER JOIN revista_nota_tags AS nt
+                    ON t.id=nt.tag_id
+                INNER JOIN revista_nota AS n
+                    ON nt.nota_id=n.id AND n.estado=1 """
 
-def listado_notas_tag(request, slug):
-    return HttpResponse('listado de notas por tag ' + slug)
+    tags = Tag.objects.raw(query)
+    return render_to_response('revista/listado_tags.html', {'tags': tags},
+        context_instance=RequestContext(request))
+
+def listado_notas_tag(request, slug, page=0, paginate_by=20, **kwargs):
+    notas = Nota.objects.published().filter(tags__slug=slug).order_by('-fecha')
+    if not notas:
+        raise Http404
+    else:
+        return list_detail.object_list(
+            request,
+            queryset=notas,
+            paginate_by=paginate_by,
+            page=page,
+            template_name='revista/listado_notas_tag.html',
+            **kwargs
+        )
 
 def listado_autores(request):
     return HttpResponse('listado de autores')
@@ -42,8 +62,3 @@ def pagina(request, url):
         {'pagina': Pagina.objects.get(url=url)},
         context_instance=RequestContext(request))
 
-def proximamente(request):
-    nota = Nota.objects.get(slug='proximamente')
-    return render_to_response('revista/nota.html',
-            {'nota': nota},
-            context_instance=RequestContext(request))

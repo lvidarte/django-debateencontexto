@@ -1,25 +1,25 @@
 
 <ul id="menu" class="menu">
 {% for menu in menus %}
-	{% with tag=menu|first  %}
+    {% with tag=menu|first  %}
     <li>
         <a {% if menu|length == 1 %}href="{{ tag.url }}"{% else %}href="#" id="menu_{{ tag.slug }}" rel="submenu_{{ tag.slug }}"{% endif %} title="">{{ tag }}</a>
     </li>
-	{% endwith %}
+    {% endwith %}
 {% endfor %}
 </ul>
 
 {% for menu in menus %}
-	{% if menu|length > 1 %}
-		{% for tag in menu %}
-			{% if forloop.first %}
+    {% if menu|length > 1 %}
+        {% for tag in menu %}
+            {% if forloop.first %}
 <ul id="submenu_{{ tag.slug }}" class="submenu" style="display:none">
-			{% else %}
-	<li><a href="{% if tag.url %}{{ tag.url }}{% else %}{{ tag.get_absolute_url }}{% endif %}" title="">{{ tag }}</a></li>
-			{% endif %}
-		{% endfor %}
+            {% else %}
+    <li><a href="{% if tag.url %}{{ tag.url }}{% else %}{{ tag.get_absolute_url }}{% endif %}" title="">{{ tag }}</a></li>
+            {% endif %}
+        {% endfor %}
 </ul>
-	{% endif %}
+    {% endif %}
 {% endfor %}
 
-{# vim:set ft=htmldjango.html: #}
+{# vim:set ft=htmldjango.html expandtab: #}

@@ -6,32 +6,32 @@
     <img src="{{ image.get_absolute_url }}" alt="{{ image.alt }}" />
     {% endif %}
 
-	{#   {{image_name size}}   #}
+    {#   {{image_name size}}   #}
     {% if tokens_count == 2 %}
     <img src="{{ image.get_absolute_url|thumb:image_width }}" alt="{{ image.alt }}" />
     {% endif %}
 
-	{#   {{image_name size image_target}}   #}
+    {#   {{image_name size image_target}}   #}
     {% if tokens_count == 3 %}
     <a href="{{ target.get_absolute_url }}" title="{{ target.epigrafe }}{% if image.autor %} Autor: {{ image.autor }}{% endif %}" rel="{{ rel }}"><img src="{{ image.get_absolute_url|thumb:image_width }}" alt="{{ image.alt }}" /></a>
     {% endif %}
 
-	{#   {{image_name size image_target size}}   #}
+    {#   {{image_name size image_target size}}   #}
     {% if tokens_count == 4 %}
     <a href="{{ target.get_absolute_url|thumb:target_width }}" title="{{ target.epigrafe }}{% if image.autor %} Autor: {{ image.autor }}{% endif %}" rel="{{ rel }}"><img src="{{ image.get_absolute_url|thumb:image_width }}" alt="{{ image.alt }}" /></a>
     {% endif %}
 
-	{# copete #}
-	{% if tokens_count == 1 or tokens_count == 2 %}
-		{% if image.epigrafe %}
+    {# copete #}
+    {% if tokens_count == 1 or tokens_count == 2 %}
+        {% if image.epigrafe %}
     <p class="epigrafe">{{ image.epigrafe }}{% if image.autor %} <span class="autor_imagen">Autor: {{ image.autor }}</span>{% endif %}</p>
-		{% endif %}
-	{% endif %}
-	{% if tokens_count == 3 or tokens_count == 4 %}
-		{% if target.epigrafe %}
+        {% endif %}
+    {% endif %}
+    {% if tokens_count == 3 or tokens_count == 4 %}
+        {% if target.epigrafe %}
     <p class="epigrafe">{{ target.epigrafe }}{% if image.autor %} <span class="autor_imagen">Autor: {{ image.autor }}</span>{% endif %}</p>
-		{% endif %}
-	{% endif %}
+        {% endif %}
+    {% endif %}
 
 </div>
-{# vim:set ft=htmldjango.html: #}
+{# vim:set ft=htmldjango.html expandtab: #}
