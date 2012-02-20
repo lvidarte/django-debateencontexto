@@ -34,6 +34,8 @@ JERARQUIA_CHOICES = (
     ('secundaria', 'Secundaria'),
 )
 
+HELP_TEXT_IMAGES = '{{image size full_image full_image_size}}'
+
 
 class Archivo(models.Model):
     file = models.FileField(upload_to='%Y/%m/%d', max_length=512,
@@ -176,7 +178,8 @@ class Nota(models.Model):
         help_text='URL de la nota (debería ser el título de la nota)')
     copete_markdown = models.TextField(blank=True, verbose_name='copete')
     copete = models.TextField(blank=True)
-    cuerpo_markdown = models.TextField(blank=True)
+    cuerpo_markdown = models.TextField(blank=True, verbose_name='cuerpo',
+        help_text=HELP_TEXT_IMAGES)
     cuerpo_html = models.TextField(blank=True)
     tags = models.ManyToManyField('Tag', blank=True, null=True)
     archivos = models.ManyToManyField('Archivo', blank=True, null=True,
@@ -291,7 +294,7 @@ class Nota(models.Model):
 class NotaArchivos(models.Model):
     nota = models.ForeignKey('Nota')
     archivo = models.ForeignKey('Archivo')
-    nombre = models.CharField(max_length=64)
+    nombre = models.CharField(max_length=64, blank=True)
     epigrafe = models.TextField(blank=True,
         verbose_name='epígrafe')
     en_galeria = models.BooleanField(default=True, choices=SINO_CHOICES,
@@ -336,7 +339,8 @@ class Pagina(models.Model):
         help_text='URL de la página (debería ser el título de la página)')
     copete_markdown = models.TextField(blank=True, verbose_name='copete')
     copete = models.TextField(blank=True)
-    cuerpo_markdown = models.TextField(blank=True)
+    cuerpo_markdown = models.TextField(blank=True, verbose_name='cuerpo',
+        help_text=HELP_TEXT_IMAGES)
     cuerpo_html = models.TextField(blank=True)
     archivos = models.ManyToManyField('Archivo', blank=True, null=True,
         through='PaginaArchivos')
@@ -421,7 +425,7 @@ class Pagina(models.Model):
 class PaginaArchivos(models.Model):
     nota = models.ForeignKey('Pagina')
     archivo = models.ForeignKey('Archivo')
-    nombre = models.CharField(max_length=64)
+    nombre = models.CharField(max_length=64, blank=True)
     epigrafe = models.TextField(blank=True,
         verbose_name='epígrafe')
     en_galeria = models.BooleanField(default=True, choices=SINO_CHOICES,

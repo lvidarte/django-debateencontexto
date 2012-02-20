@@ -12,8 +12,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^cache/', include('contexto.cache.urls')),
     url(r'', include('contexto.revista.urls')),
-    #url(r'^home/', include('contexto.revista.urls')),
-    #url(r'^$', proximamente),
 )
 
 # Serve images from media in development

@@ -70,13 +70,6 @@ class NotaAutoresInline(admin.TabularInline):
     model = NotaAutores
     extra = 0
 
-    class Media:
-        js = (settings.STATIC_URL + 'uedit/uedit.js',
-              settings.STATIC_URL + 'uedit/uedit.ui.complete.js')
-        css = {'screen': (settings.STATIC_URL + 'css/admin.css',
-                          settings.STATIC_URL + 'uedit/uedit.ui.css',
-                          settings.STATIC_URL + 'uedit/uedit.ui.complete.css')}
-
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'autor':
             kwargs['queryset'] = Autor.objects.order_by('apellido', 'nombre')
@@ -126,6 +119,13 @@ class NotaAdmin(admin.ModelAdmin):
         models.TextField: {'widget': Textarea(attrs={'rows':'20', 'cols':'80'})}
     }
 
+    class Media:
+        js = (settings.STATIC_URL + 'uedit/uedit.js',
+              settings.STATIC_URL + 'uedit/uedit.ui.complete.js')
+        css = {'screen': (settings.STATIC_URL + 'css/admin.css',
+                          settings.STATIC_URL + 'uedit/uedit.ui.css',
+                          settings.STATIC_URL + 'uedit/uedit.ui.complete.css')}
+
     def save_model(self, request, obj, form, change):
         #import ipdb; ipdb.set_trace()
         if not change:
@@ -140,7 +140,7 @@ class PaginaArchivosInline(admin.TabularInline):
 class PaginaAdmin(admin.ModelAdmin):
     inlines = (PaginaArchivosInline,)
     list_display = (
-        'titulo', 'url', 'get_estado'
+        'titulo', 'get_absolute_url', 'get_estado'
     )
     list_filter = ('editor_creacion',)
     search_fields = ['@titulo',]
@@ -158,6 +158,13 @@ class PaginaAdmin(admin.ModelAdmin):
         models.CharField: {'widget': TextInput(attrs={'size':TEXTAREA_SIZE})},
         models.TextField: {'widget': Textarea(attrs={'rows':'20', 'cols':'80'})}
     }
+
+    class Media:
+        js = (settings.STATIC_URL + 'uedit/uedit.js',
+              settings.STATIC_URL + 'uedit/uedit.ui.complete.js')
+        css = {'screen': (settings.STATIC_URL + 'css/admin.css',
+                          settings.STATIC_URL + 'uedit/uedit.ui.css',
+                          settings.STATIC_URL + 'uedit/uedit.ui.complete.css')}
 
     def save_model(self, request, obj, form, change):
         #import ipdb; ipdb.set_trace()
