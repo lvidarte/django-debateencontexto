@@ -2,7 +2,9 @@
 <ul id="menu" class="menu">
 {% for menu in menus %}
 	{% with tag=menu|first  %}
-	<li><a href="#" title=""  id="menu_{{ tag.slug }}" rel="submenu_{{ tag.slug }}">{{ tag }}</a></li>
+    <li>
+        <a {% if menu|length == 1 %}href="{{ tag.url }}"{% else %}href="#" id="menu_{{ tag.slug }}" rel="submenu_{{ tag.slug }}"{% endif %} title="">{{ tag }}</a>
+    </li>
 	{% endwith %}
 {% endfor %}
 </ul>
@@ -13,7 +15,7 @@
 			{% if forloop.first %}
 <ul id="submenu_{{ tag.slug }}" class="submenu" style="display:none">
 			{% else %}
-	<li><a href="{{ tag.get_absolute_url }}" title="">{{ tag }}</a></li>
+	<li><a href="{% if tag.url %}{{ tag.url }}{% else %}{{ tag.get_absolute_url }}{% endif %}" title="">{{ tag }}</a></li>
 			{% endif %}
 		{% endfor %}
 </ul>

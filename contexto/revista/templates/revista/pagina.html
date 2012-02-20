@@ -1,0 +1,34 @@
+{% extends "revista/container.html" %}
+
+{% block title %}{{ pagina.titulo }}{% endblock %}
+
+{% block content %}
+    {% load cache2 %}
+    <article>
+        <header>
+            <h1>{{ pagina.titulo }}</h1>
+            <time>{{ pagina.fecha }}</time>
+        </header>
+        {% if pagina.imagenes_en_galeria_count %}
+        <h5>Galería ({{ pagina.imagenes_en_galeria_count }} foto{{ pagina.imagenes_en_galeria_count|pluralize }})</h5>
+        <div class="gallery">
+            {% for img in pagina.get_imagenes %}
+            {% if img.en_galeria %}
+            <span>
+                <a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="{% if pagina.imagenes_en_galeria_count > 1 %}galeria[pagina.{% else %}galeria{% endif %}">
+                    <img src="{% if forloop.first %}{{ img.get_absolute_url|thumb:200 }}{% else %}{{ img.get_absolute_url|thumb:50 }}{% endif %}" alt="{{ img.alt }}" />
+                </a>
+            </span>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div style="clear:both">
+        {{ pagina.cuerpo|safe }}
+        <footer>metadata</footer>
+        <nav>between articles</nav>
+        </div>
+    </article>
+{% endblock %}
+
+{# vim:set ft=htmldjango.html expandtab: #}

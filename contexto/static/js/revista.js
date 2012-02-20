@@ -27,7 +27,7 @@ $(document).ready(function() {
 	/**
 	 * Menú
 	 */
-	$('#menu li > a').click(function(event) {
+	$('#menu li > a[rel]').click(function(event) {
 		event.preventDefault();
 		$('.submenu').hide();
 		$('#menu li > a').removeClass('selected');

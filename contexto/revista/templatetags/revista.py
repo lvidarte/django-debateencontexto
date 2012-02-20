@@ -7,7 +7,6 @@ from contexto.revista.models import Tag
 register = template.Library()
 
 
-# {{{ bloque_menu
 @register.inclusion_tag('revista/bloques/menu.html')
 def bloque_menu():
     tags = Tag.objects.filter(en_menu=True)
@@ -27,5 +26,4 @@ def bloque_menu():
     del menu
 
     return locals()
-# }}}
 

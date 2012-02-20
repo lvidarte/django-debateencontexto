@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import markdown
+
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User as Editor
@@ -33,7 +35,7 @@ JERARQUIA_CHOICES = (
 )
 
 
-class Archivo(models.Model): # {{{
+class Archivo(models.Model):
     file = models.FileField(upload_to='%Y/%m/%d', max_length=512,
         verbose_name='archivo')
     alt = models.CharField(max_length=255, blank=True,
@@ -130,8 +132,8 @@ class Archivo(models.Model): # {{{
 
     def __unicode__(self):
         return self.file.name
-# }}}
-class Autor(models.Model): # {{{
+
+class Autor(models.Model):
     nombre = models.CharField(max_length=255)
     apellido = models.CharField(max_length=255, blank=True)
     slug = models.SlugField(max_length=255, unique=True,
@@ -162,8 +164,8 @@ class Autor(models.Model): # {{{
 
     def __unicode__(self):
         return " ".join([x for x in (self.nombre, self.apellido) if x])
-# }}}
-class Nota(models.Model): # {{{
+
+class Nota(models.Model):
     fecha = models.DateField(default=datetime.now())
     hora = models.TimeField(default=datetime.now())
     autores = models.ManyToManyField('Autor', blank=True, null=True,
@@ -276,7 +278,6 @@ class Nota(models.Model): # {{{
             return notas[0]
 
     def save(self, force_insert=False, force_update=False):
-        import markdown
         self.copete = markdown.markdown(self.copete_markdown)
         self.cuerpo_html = markdown.markdown(self.cuerpo_markdown)
         if self.slug == '':
@@ -286,8 +287,8 @@ class Nota(models.Model): # {{{
     def __unicode__(self):
         return '%s [%s] %s' % (self.id,
             self.fecha.strftime('%Y-%m-%d'), self.titulo)
-# }}}
-class NotaArchivos(models.Model): # {{{
+
+class NotaArchivos(models.Model):
     nota = models.ForeignKey('Nota')
     archivo = models.ForeignKey('Archivo')
     nombre = models.CharField(max_length=64)
@@ -315,8 +316,7 @@ class NotaArchivos(models.Model): # {{{
     def get_autores(self):
         return self.archivo.ArchivoAutores_set.all()
 
-# }}}
-class NotaAutores(models.Model): # {{{
+class NotaAutores(models.Model):
     nota = models.ForeignKey('Nota')
     autor = models.ForeignKey('Autor')
     orden = models.IntegerField(default=0)
@@ -328,11 +328,130 @@ class NotaAutores(models.Model): # {{{
 
     def __unicode__(self):
         return ", ".join((self.autor.apellido, self.autor.nombre))
-# }}}
-class Tag(models.Model): # {{{
+
+class Pagina(models.Model):
+    titulo = models.CharField(max_length=255, blank=True,
+        verbose_name='título')
+    url = models.CharField(max_length=255, unique=True,
+        help_text='URL de la página (debería ser el título de la página)')
+    copete_markdown = models.TextField(blank=True, verbose_name='copete')
+    copete = models.TextField(blank=True)
+    cuerpo_markdown = models.TextField(blank=True)
+    cuerpo_html = models.TextField(blank=True)
+    archivos = models.ManyToManyField('Archivo', blank=True, null=True,
+        through='PaginaArchivos')
+    estado = models.BooleanField(default=False,
+        choices=SINO_CHOICES, verbose_name='visible')
+
+    # Datos creación
+    editor_creacion = models.ForeignKey(Editor, blank=True,
+        related_name='pagina_creado_por', verbose_name='creado por')
+    fecha_creacion = models.DateTimeField(auto_now_add=True,
+        verbose_name='creado el')
+
+    # Datos última modificación
+    editor_modificacion = models.ForeignKey(Editor, blank=True,
+        related_name='pagina_modificado_por', verbose_name='modificado por')
+    fecha_modificacion = models.DateTimeField(auto_now=True,
+        verbose_name='modificado el')
+
+    @property
+    def cuerpo(self):
+        return parse_tags(self.cuerpo_html, self.get_imagenes())
+
+    # Manager
+    objects = PublicManager()
+
+    def get_estado(self):
+        return self.estado
+
+    get_estado.short_description = 'visible'
+    get_estado.boolean = True
+    get_estado.admin_order_field = 'estado'
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('contexto-revista-pagina', (), {'url': self.url})
+
+    def get_archivos(self):
+        if not getattr(self, '_archivos', False):
+            self._archivos = []
+            for pa in self.paginaarchivos_set.order_by('orden'):
+                archivo = pa.archivo
+                archivo.epigrafe = pa.epigrafe
+                archivo.orden = pa.orden
+                archivo.nombre = pa.nombre
+                archivo.en_galeria = pa.en_galeria
+                archivo.en_titular = pa.en_titular
+                self._archivos.append(archivo)
+        return self._archivos
+
+    def get_imagenes(self):
+        imagenes = []
+        for archivo in self.get_archivos():
+            if archivo.es_imagen:
+                imagenes.append(archivo)
+        return imagenes
+
+    def imagenes_count(self):
+        return len(self.get_imagenes())
+
+    def imagenes_en_galeria_count(self):
+        total = 0
+        for imagen in self.get_imagenes():
+            if imagen.en_galeria:
+                total += 1
+        return total
+
+    def get_imagen_titular(self):
+        for imagen in self.get_imagenes():
+            if imagen.en_titular:
+                return imagen
+
+    def save(self, force_insert=False, force_update=False):
+        self.copete = markdown.markdown(self.copete_markdown)
+        self.cuerpo_html = markdown.markdown(self.cuerpo_markdown)
+        if self.url == '':
+            self.url = 'sin-titulo'
+        super(Pagina, self).save(force_insert, force_update)
+
+    def __unicode__(self):
+        return '%s %s' % (self.id, self.titulo)
+
+class PaginaArchivos(models.Model):
+    nota = models.ForeignKey('Pagina')
+    archivo = models.ForeignKey('Archivo')
+    nombre = models.CharField(max_length=64)
+    epigrafe = models.TextField(blank=True,
+        verbose_name='epígrafe')
+    en_galeria = models.BooleanField(default=True, choices=SINO_CHOICES,
+        verbose_name='en galería')
+    en_titular = models.BooleanField(default=False, choices=SINO_CHOICES)
+    orden = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = 'revista_pagina_archivos'
+        verbose_name = 'archivo de la página'
+        verbose_name_plural = 'archivos de la página'
+
+    def thumbnail(self, width=100):
+        return self.archivo.thumbnail(width)
+
+    thumbnail.short_description = 'miniatura'
+    thumbnail.allow_tags = True
+
+    def __unicode__(self):
+        return self.archivo.__unicode__()
+
+    def get_autores(self):
+        return self.archivo.ArchivoAutores_set.all()
+
+class Tag(models.Model):
     nombre = models.CharField(max_length=128)
     slug = models.SlugField(max_length=255, unique=True,
         help_text='URL del listado de notas relacionadas con el tag')
+    url = models.CharField(max_length=255, blank=True, null=True,
+        help_text='URL de la página estática')
     en_menu = models.BooleanField(default=False,
         choices=SINO_CHOICES, verbose_name='En menú?',
         help_text='¿Se muestra en el menú?')
@@ -354,5 +473,4 @@ class Tag(models.Model): # {{{
 
     def __unicode__(self):
         return self.nombre
-# }}}
 
