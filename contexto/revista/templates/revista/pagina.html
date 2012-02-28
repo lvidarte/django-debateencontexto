@@ -4,10 +4,9 @@
 
 {% block content %}
     {% load cache2 %}
-    <article>
+    <article class="post span-15 colborder">
         <header>
-            <h1>{{ pagina.titulo }}</h1>
-            <time>{{ pagina.fecha }}</time>
+            <h2>{{ pagina.titulo }}</h2>
         </header>
         {% if pagina.imagenes_en_galeria_count %}
         <h5>Galería ({{ pagina.imagenes_en_galeria_count }} foto{{ pagina.imagenes_en_galeria_count|pluralize }})</h5>
@@ -25,9 +24,9 @@
         {% endif %}
         <div style="clear:both">
         {{ pagina.cuerpo|safe }}
-        <footer>metadata</footer>
-        <nav>between articles</nav>
         </div>
+    </article>
+    <article class="sidebar span-8 last">
     </article>
 {% endblock %}
 
