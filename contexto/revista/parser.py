@@ -3,7 +3,7 @@
 from django.template.loader import render_to_string
 
 
-def parse_tags(text, images): # {{{
+def parse_tags(text, images):
     """
     Image:   {{img_name}}
     Resize:  {{img_name size}}
@@ -22,8 +22,8 @@ def parse_tags(text, images): # {{{
             text = text.replace(tag, html)
 
     return text
-# }}}
-def get_align(tag): # {{{
+
+def get_align(tag):
     if tag[2] == ' ' and tag[-3] == ' ':
         return 'align-center'
     elif tag[2] == ' ':
@@ -32,8 +32,8 @@ def get_align(tag): # {{{
         return 'align-left'
     else:
         return ''
-# }}}
-def get_html(tokens, align, images, tags_count): # {{{
+
+def get_html(tokens, align, images, tags_count):
     tokens_count = len(tokens)
     if tokens_count not in (1, 2, 3, 4):
         return
@@ -51,7 +51,7 @@ def get_html(tokens, align, images, tags_count): # {{{
         target = get_image(tokens[2], images)
         if not target:
             return
-        rel = 'galeria' if tags_count == 1 else 'galeria[cuerpo]'
+        rel = 'gallery' if tags_count == 1 else 'gallery[body]'
 
     if tokens_count > 3:
         if not tokens[3].isdigit():
@@ -59,8 +59,8 @@ def get_html(tokens, align, images, tags_count): # {{{
         target_width = int(tokens[3])
 
     return render_to_string('revista/minibloques/imagen_cuerpo.html', locals())
-# }}}
-def get_html_old(tokens, align, images, tags_count): # {{{
+
+def get_html_old(tokens, align, images, tags_count):
     html = '<div%s>' % (' class="%s"' % align if align else '')
     image = get_image(tokens[0], images)
     if len(tokens) == 1:
@@ -75,10 +75,9 @@ def get_html_old(tokens, align, images, tags_count): # {{{
         html += '<a href="%s" title="%s", rel="%s"><img src="/cache/%d%s" alt="%s" title="%s"></a>' % (image2.get_absolute_url(), image2.epigrafe, rel, width, image.get_absolute_url(), image.alt, image.epigrafe)
     html += '</div>'
     return html
-# }}}
-def get_image(image_name, images): # {{{
+
+def get_image(image_name, images):
     for image in images:
         if image.nombre == image_name:
             return image
-# }}}
 

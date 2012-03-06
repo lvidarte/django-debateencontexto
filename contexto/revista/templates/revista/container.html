@@ -1,32 +1,33 @@
 {% extends "revista/base.html" %}
 
 {% block head %}
-    <script src="{{ STATIC_URL }}js/jquery.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
     <script src="{{ STATIC_URL }}prettyphoto/js/jquery.prettyPhoto.js"></script>
-    <script src="{{ STATIC_URL }}js/revista.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/contexto.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}prettyphoto/css/prettyPhoto.css"></link>
+    <link href="{{ STATIC_URL }}prettyphoto/css/prettyPhoto.css" rel="stylesheet">
 {% endblock %}
 
 {% block container %}
     {% load revista %}
 
-    {% include "revista/bloques/tools.html" %}
-
-    <header id="header" class="span-24 last">
-        <div class="span-8"><a href="/" title=""><img src="{{ STATIC_URL }}/images/logo3.png" alt="" /></a></div>
-
-        <nav class="span-16 last main-menu">
-            {% bloque_menu %}
-        </nav>
+    <header>
+        <div class="logo">
+            <a href="/" title=""><img src="{{ STATIC_URL }}images/logo4.png" alt="" /></a>
+        </div>
     </header>
 
-    <section id="content" class="span-24 last">
+    <nav class="menu">
+        {% bloque_menu %}
+    </nav>
+
+    <section class="row content">
         {% block content %}
         {% endblock %}
     </section>
 
-    <footer id="footer" class="span-24 last">
+    <footer>
         {% block footer %}
         <p>Buenos Aires, Argentina</p>
         {% endblock %}

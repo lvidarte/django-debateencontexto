@@ -1,25 +1,18 @@
-
-<ul id="menu" class="menu">
-{% for menu in menus %}
-    {% with tag=menu|first  %}
-    <li>
-        <a {% if menu|length == 1 %}href="{{ tag.url }}"{% else %}href="#" id="menu_{{ tag.slug }}" rel="submenu_{{ tag.slug }}"{% endif %} title="">{{ tag }}</a>
+<ul class="nav nav-pills">
+{% for group in menu %}
+    {% if group.subitems|length %}
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ group.item }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          {% for subitem in group.subitems %}
+          <li><a href="{% if subitem.url %}{{ subitem.url }}{% else %}{{ subitem.get_absolute_url }}{% endif %}">{{ subitem }}</a></li>
+          {% endfor %}
+        </ul>
     </li>
-    {% endwith %}
-{% endfor %}
-</ul>
-
-{% for menu in menus %}
-    {% if menu|length > 1 %}
-        {% for tag in menu %}
-            {% if forloop.first %}
-<ul id="submenu_{{ tag.slug }}" class="submenu" style="display:none">
-            {% else %}
-    <li><a href="{% if tag.url %}{{ tag.url }}{% else %}{{ tag.get_absolute_url }}{% endif %}" title="">{{ tag }}</a></li>
-            {% endif %}
-        {% endfor %}
-</ul>
+    {% else %}
+    <li><a href="{% if group.item.url %}{{ group.item.url }}{% else %}{{ group.item.get_absolute_url }}{% endif %}">{{ group.item }}</a></li>
     {% endif %}
 {% endfor %}
+</ul>
 
 {# vim:set ft=htmldjango.html expandtab: #}

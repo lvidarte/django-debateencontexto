@@ -13,17 +13,14 @@ def bloque_menu():
     tags = tags.order_by('padre', 'orden')
 
     menu = []
-    menus = []
     for tag in tags:
-        menu = []
+        subitems = []
         if tag.padre_id is None:
-            menu.append(tag)
+            item = tag
             for subtag in tags:
                 if subtag.padre_id == tag.id:
-                    menu.append(subtag)
-            menus.append(menu[:])
-
-    del menu
+                    subitems.append(subtag)
+            menu.append({'item': item, 'subitems': subitems})
 
     return locals()
 

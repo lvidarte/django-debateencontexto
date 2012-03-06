@@ -4,7 +4,7 @@
 
 {% block content %}
     {% load cache2 %}
-    <article class="post span-15 colborder">
+    <article class="post span8">
         <header>
             <h2>{{ pagina.titulo }}</h2>
         </header>
@@ -26,8 +26,9 @@
         {{ pagina.cuerpo|safe }}
         </div>
     </article>
-    <article class="sidebar span-8 last">
-    </article>
+    <section id="sidebar" class="span4">
+    hola mundo
+    </section>
 {% endblock %}
 
 {# vim:set ft=htmldjango.html expandtab: #}
