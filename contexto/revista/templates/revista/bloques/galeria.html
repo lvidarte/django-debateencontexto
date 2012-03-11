@@ -1,0 +1,32 @@
+{% load cache2 %}
+
+{% if nota.imagenes_en_galeria_count %}
+<section class="gallery">
+<h5>Galería ({{ nota.imagenes_en_galeria_count }} foto{{ nota.imagenes_en_galeria_count|pluralize }})</h5>
+
+{% for img in nota.get_imagenes %}
+    {% if img.en_galeria %}
+    {% if forloop.first %}
+    <div class="photo">
+        <a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="gallery[post]">
+            <img src="{{ img.get_absolute_url|thumb:360 }}" alt="{{ img.alt }}" />
+        </a>
+        {% if img.epigrafe %}
+        <p class="epigrafe">{{ img.epigrafe }}</p>
+        {% endif %}
+    </div>
+    {% else %}
+    <span>
+        <a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="gallery[post]">
+            <img src="{{ img.get_absolute_url|thumb:60 }}" alt="{{ img.alt }}" />
+        </a>
+    </span>
+    {% endif %}
+    {% endif %}
+
+{% endfor %}
+</section>
+{% endif %}
+
+
+{# vim:set ft=htmldjango.html expandtab: #}

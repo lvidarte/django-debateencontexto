@@ -24,3 +24,7 @@ def bloque_menu():
 
     return locals()
 
+@register.inclusion_tag('revista/bloques/galeria.html')
+def bloque_galeria(nota):
+    return locals()
+

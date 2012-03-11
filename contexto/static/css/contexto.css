@@ -90,9 +90,9 @@ header {
   border-right: 0;
 }
 .menu .dropdown-menu {
-  -webkit-border-radius: 0 0 4px 4px;
-     -moz-border-radius: 0 0 4px 4px;
-          border-radius: 0 0 4px 4px;
+  -webkit-border-radius: 0 0 6px 6px;
+     -moz-border-radius: 0 0 6px 6px;
+          border-radius: 0 0 6px 6px;
 }
 
 /* Fixed menu on scroll, but only for 980px and up (sorry IE!) */
@@ -171,3 +171,18 @@ header {
   filter: alpha(opacity=30);
   content: "\2191";
 }
+
+/* Notas - Páginas */
+.photo {
+    background: #666;
+    -webkit-border-radius: 0 0 4px 4px;
+       -moz-border-radius: 0 0 4px 4px;
+            border-radius: 0 0 4px 4px;
+}
+
+.epigrafe {
+    color: #fff;
+    padding: 8px 5px 8px 5px;
+    font-size: .8em;
+}
+
