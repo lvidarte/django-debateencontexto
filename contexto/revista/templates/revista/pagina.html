@@ -23,8 +23,12 @@
         {{ pagina.cuerpo|safe }}
 
         <footer style="margin-top:20px">
+
+        {% if pagina.permitir_comentarios %}
             <h3>Comentarios</h3>
             <div class="fb-comments" data-href="http://www.revista-contexto.com.ar{{ pagina.get_absolute_url }}" data-num-posts="3" data-width="620"></div>
+        {% endif %}
+
         </footer>
 
     </article>

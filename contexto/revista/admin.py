@@ -103,7 +103,8 @@ class NotaAdmin(admin.ModelAdmin):
                        'copete_markdown', 'cuerpo_markdown'),
         }),
         (None, {
-            'fields': ('jerarquia', 'es_galeria', 'orden'),
+            'fields': ('jerarquia', 'es_galeria', 'orden',
+                       'permitir_comentarios'),
         }),
         ('Tags', {
             'classes': ('collapse', ),
@@ -152,6 +153,9 @@ class PaginaAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('titulo', 'url',
                        'copete_markdown', 'cuerpo_markdown'),
+        }),
+        (None, {
+            'fields': ('permitir_comentarios',),
         }),
     )
     formfield_overrides = {

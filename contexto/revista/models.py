@@ -193,6 +193,8 @@ class Nota(models.Model):
         choices=JERARQUIA_CHOICES, verbose_name='jerarquía')
     relacionadas = models.ManyToManyField('Nota', blank=True, null=True,
         verbose_name='notas relacionadas')
+    permitir_comentarios = models.BooleanField(default=True,
+        choices=SINO_CHOICES)
 
     # Datos creación
     editor_creacion = models.ForeignKey(Editor, blank=True,
@@ -346,6 +348,8 @@ class Pagina(models.Model):
         through='PaginaArchivos')
     estado = models.BooleanField(default=False,
         choices=SINO_CHOICES, verbose_name='visible')
+    permitir_comentarios = models.BooleanField(default=True,
+        choices=SINO_CHOICES)
 
     # Datos creación
     editor_creacion = models.ForeignKey(Editor, blank=True,
