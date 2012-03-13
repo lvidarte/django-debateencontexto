@@ -8,12 +8,21 @@ from django.views.generic import list_detail
 from contexto.revista.models import Nota, Pagina, Tag
 
 def portada(request, page=0, paginate_by=20, **kwargs):
+    notas = Nota.objects.published()
+    notas = notas.order_by('-fecha', 'orden')
+
+    destacadas = []
+    if page == 0:
+        destacadas = [n for n in notas[0:20]
+                      if n.jerarquia=='destacada']
+
     return list_detail.object_list(
         request,
-        queryset=Nota.objects.published().order_by('-fecha'),
+        queryset=notas,
         paginate_by=paginate_by,
         page=page,
         template_name='revista/portada.html',
+        extra_context={'destacadas': destacadas},
         **kwargs
     )
 

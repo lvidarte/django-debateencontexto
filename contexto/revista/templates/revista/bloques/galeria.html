@@ -9,7 +9,7 @@
     {% if forloop.first %}
     <div class="photo">
         <a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="gallery[post]">
-            <img src="{{ img.get_absolute_url|thumb:360 }}" alt="{{ img.alt }}" />
+            <img src="{{ img.get_absolute_url|thumb:300 }}" alt="{{ img.alt }}" />
         </a>
         {% if img.epigrafe %}
         <p class="epigrafe">{{ img.epigrafe }}</p>

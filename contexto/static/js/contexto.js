@@ -28,4 +28,9 @@ $(function() {
      */
     $("a[rel^='gallery']").prettyPhoto();
 
+    /**
+     * Carousel
+     */
+    $('#myCarousel').carousel();
+
 });
