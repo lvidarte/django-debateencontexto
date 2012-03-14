@@ -1,7 +1,7 @@
-<div class="logo-nav">
-    <a href="/" title="Ir a la portada"><img src="/static/images/logo-nav.png" alt="" /></a>
-</div>
 <ul class="nav nav-pills">
+    <li class="logo-nav">
+        <a href="/" title="Ir a la portada"><img src="/static/images/logo-nav.png" alt="" /></a>
+    </li>
 {% for group in menu %}
     {% if group.subitems|length %}
     <li class="dropdown">
