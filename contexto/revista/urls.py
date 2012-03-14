@@ -22,7 +22,7 @@ urlpatterns = patterns('contexto.revista.views',
      'nota', {}, 'contexto-revista-nota'),
 
     #(r'^$', 'pagina', {'url': 'proximamente'}, 'contexto-revista-portada'),
-    (r'^$', 'portada', {}, 'contexto-revista-portada'),
+    (r'^(?P<page>\d+)?$', 'portada', {}, 'contexto-revista-portada'),
 
 )
 
