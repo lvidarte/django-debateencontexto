@@ -41,7 +41,8 @@ class Archivo(models.Model):
     file = models.FileField(upload_to='%Y/%m/%d', max_length=512,
         verbose_name='archivo')
     alt = models.CharField(max_length=255, blank=True,
-        verbose_name='alt', help_text='Descripción de la imagen (no videntes)')
+        verbose_name='alt',
+        help_text='Descripción de la imagen')
     descripcion = models.TextField(blank=True,
         verbose_name='descripción')
     size = models.IntegerField(blank=True, default=0,
@@ -133,7 +134,10 @@ class Archivo(models.Model):
         super(Archivo, self).save(force_insert, force_update)
 
     def __unicode__(self):
-        return self.file.name
+        if self.alt:
+            return self.alt
+        else:
+            return self.file.name
 
 class Autor(models.Model):
     nombre = models.CharField(max_length=255)
@@ -230,6 +234,15 @@ class Nota(models.Model):
                     'month': self.fecha.strftime('%m'),
                     'day': self.fecha.strftime('%d'),
                     'slug': self.slug})
+
+    def get_autores(self):
+        if not getattr(self, '_autores', False):
+            self._autores = []
+            for na in self.notaautores_set.order_by('orden'):
+                autor = na.autor
+                autor.orden = na.orden
+                self._autores.append(autor)
+        return self._autores
 
     def get_archivos(self):
         if not getattr(self, '_archivos', False):

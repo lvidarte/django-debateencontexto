@@ -16,8 +16,23 @@ h1, h2, h3, h4, h5, {
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
-h1 { font-size: 2.5em }
-h2 { font-size: 2em }
+h1 {
+    font-size: 2.2em;
+    line-height: 1.1em;
+    margin-bottom: .2em;
+}
+
+h2 {
+    font-size: 1.6em;
+    line-height: 1.1em;
+    margin-bottom: .3em;
+}
+
+h3 {
+    font-size: 1.2em;
+    line-height: 1.1em;
+    margin-bottom: .5em;
+}
 
 /* header */
 .logo {
@@ -135,6 +150,40 @@ h2 { font-size: 2em }
 
 /* content */
 .content {
+}
+
+.volanta {
+    font-weight: normal;
+    font-size: .95em;
+    color: #777;
+    margin-bottom: 2px;
+}
+
+.autores {
+    margin: 0;
+}
+
+.copete, .copete > p {
+    margin-top: 0;
+}
+
+.bloque-copete .copete {
+    font-size: 1.1em;
+    margin-bottom: 1em;
+}
+
+.separador {
+    border-top: 1px dashed #ddd;
+    margin-top: 16px;
+    padding-top: 16px;
+}
+
+.secundario img {
+    margin-bottom: 10px;
+}
+
+.pagination {
+    margin: 20px 0 0 20px !important;
 }
 
 /* footer */

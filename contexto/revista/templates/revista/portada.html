@@ -7,58 +7,103 @@
 {% endblock %}
 
 {% block content %}
-    {% load cache2 %}
+  {% load cache2 revista %}
 
-    {% if destacadas|length %}
-    <div id="myCarousel" class="span12 carousel slide">
-        <div class="carousel-inner">
-        {% for nota in destacadas %}
-            <div class="item {% if forloop.first %}active{% endif %}">
-                <img src="{{ nota.get_imagen_titular.get_absolute_url }}" alt="" />
-                <div class="carousel-caption">
-                    <h2><a href="{{ nota.get_absolute_url }}">{{ nota.titulo }}</a></h2>
-                    <p class="copete">{{ nota.copete|safe }}</p>
-                </div>
-            </div>
-        {% endfor %}
+  {% if page == 0 %}Hola mundo{% endif %}
+
+  {# Destacadas #}
+  {% with notas=object_list|jerarquia:'destacada' %}
+  {% if notas %}
+  <div id="myCarousel" class="span12 carousel slide">
+    <div class="carousel-inner">
+    {% for nota in notas %}
+      <div class="item {% if forloop.first %}active{% endif %}">
+        <img src="{{ nota.get_imagen_titular.get_absolute_url }}" alt="" />
+        <div class="carousel-caption">
+          {% bloque_volanta nota %}
+          <h1><a href="{{ nota.get_absolute_url }}">{{ nota.titulo }}</a></h1>
+          {% bloque_copete nota %}
         </div>
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+      </div>
+    {% endfor %}
     </div>
-    {% endif %}
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+  </div>
+  {% endif %}
+  {% endwith %}
 
-    {% for nota in object_list %}
-    {% if nota.jerarquia != 'destacada' %}
-    <article class="post span8">
+  {# Normales #}
+  <div class="span8">
+  {% with notas=object_list|jerarquia:'normal' %}
+  {% for nota in notas %}
+  <div class="titular normal {% if not forloop.first %}separador{% endif %}">
 
-        <header>
-            <h2><a href="{{ nota.get_absolute_url }}" title="">{{ nota.titulo }}</a></h2>
-            <time>{{ nota.fecha }}</time>
-        </header>
+    <header>
+      {% bloque_volanta nota %}
+      <h2><a href="{{ nota.get_absolute_url }}" title="">{{ nota.titulo }}</a></h2>
+    </header>
+
+    {% with nota.get_imagen_titular as imagen %}
+      {% if imagen %}
+      <div class="row">
+        <div class="span3">
+            <img src="{{ imagen.get_absolute_url|thumb:220 }}" alt="{{ imagen.alt }}" />
+        </div>
+        <div class="span5">
+          {% bloque_autores nota %}
+          {% bloque_copete nota %}
+        </div>
+      </div>
+      {% else %}
+
+      {% bloque_autores nota %}
+      {% bloque_copete nota %}
+      {% endif %}
+    {% endwith %}
+
+  </div>
+  {% endfor %}
+  {% endwith %}
+  </div>
+
+  <div class="span4 sidebar">
+
+    {# Secundarias #}
+    {% with notas=object_list|jerarquia:'secundaria' %}
+    {% for nota in notas %}
+      <div class="titular secundario {% if not forloop.first %}separador{% endif %}">
+        {% bloque_volanta nota %}
+        <h3><a href="{{ nota.get_absolute_url }}" title="">{{ nota.titulo }}</a></h3>
 
         {% with nota.get_imagen_titular as imagen %}
-            {% if imagen %}
-        <img src="{{ imagen.get_absolute_url|thumb:120 }}" alt="{{ imagen.alt }}" />
-            {% endif %}
+        {% if imagen %}
+        <div>
+          <img src="{{ imagen.get_absolute_url|thumb:300 }}" alt="{{ imagen.alt }}" />
+        </div>
+        {% endif %}
         {% endwith %}
-        <p class="copete">{{ nota.copete|safe }}</p>
 
-    </article>
-    {% endif %}
+        {% bloque_autores nota %}
+        {% bloque_copete nota %}
+      </div>
     {% endfor %}
+    {% endwith %}
 
-    {% if is_paginated %}
-    <div class="pagination pagination-centered span8">
-        <ul>
-            <li {% if page < 2 %}class="active"{% endif %}><a href="/{% if previous > 1 %}{{ previous }}{% endif %}">«</a></li>
-            {% for p in paginator.page_range %}
-            <li {% if p == page %}class="active"{% endif %}><a href="/{% if p > 1 %}{{ p }}{% endif %}">{{ p }}</a></li>
-            {% endfor %}
-            <li {% if next > paginator.num_pages %}class="active"{% endif %}><a href="/{{ next }}">»</a></li>
-        </ul>
-    </div>
-    {% endif %}
+  </div>
+
+  {% if is_paginated %}
+  <footer class="span8 pagination pagination-centered">
+    <ul>
+      <li {% if page < 2 %}class="active"{% endif %}><a href="/{% if previous > 1 %}{{ previous }}{% endif %}">«</a></li>
+      {% for p in paginator.page_range %}
+      <li {% if p == page %}class="active"{% endif %}><a href="/{% if p > 1 %}{{ p }}{% endif %}">{{ p }}</a></li>
+      {% endfor %}
+      <li {% if next > paginator.num_pages %}class="active"{% endif %}><a href="/{{ next }}">»</a></li>
+    </ul>
+  </footer>
+  {% endif %}
 
 {% endblock %}
 
-{# vim:set ft=htmldjango.html expandtab: #}
+{# vim:set ft=htmldjango.html tabstop=2 expandtab: #}

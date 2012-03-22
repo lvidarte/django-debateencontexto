@@ -18,10 +18,15 @@
     <article class="post span8">
 
         <header>
+            {% bloque_volanta nota %}
             <h1>{{ nota.titulo }}</h1>
-            <time>{{ nota.fecha }}</time>
         </header>
 
+        <div class="bloque-copete">
+        {% bloque_copete nota %}
+        </div>
+
+        {% bloque_autores nota %}
         {{ nota.cuerpo|safe }}
 
         <nav>between articles</nav>

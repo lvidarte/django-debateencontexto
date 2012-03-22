@@ -1,0 +1,6 @@
+<h5 class="volanta">
+    <span class="fecha-hora">{{ fecha }}</span>
+    {% if tags %}» {% for tag in tags %}{% if not forloop.first %}, {% endif %}<a href="{{ tag.get_absolute_url }}" title="">{{ tag }}</a>{% endfor %}{% endif %}
+</h5>
+
+{# vim:set ft=htmldjango.html tabstop=2 expandtab: #}

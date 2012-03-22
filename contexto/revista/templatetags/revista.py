@@ -28,3 +28,24 @@ def bloque_menu():
 def bloque_galeria(nota):
     return locals()
 
+@register.inclusion_tag('revista/minibloques/volanta.html')
+def bloque_volanta(nota):
+    fecha = nota.fecha
+    tags = nota.tags.all()
+    return locals()
+
+@register.inclusion_tag('revista/minibloques/autores.html')
+def bloque_autores(nota):
+    autores = nota.get_autores()
+    return locals()
+
+@register.inclusion_tag('revista/minibloques/copete.html')
+def bloque_copete(nota):
+    copete = nota.copete
+    return locals()
+
+@register.filter
+def jerarquia(object_list, jerarquia):
+    return [nota for nota in object_list
+                if nota.jerarquia==jerarquia]
+
