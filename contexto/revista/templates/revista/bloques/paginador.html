@@ -1,0 +1,13 @@
+{% if is_paginated %}
+<div class="span8 pagination pagination-centered">
+<ul>
+  <li {% if page < 2 %}class="active"{% endif %}><a href="/{% if previous > 1 %}{{ previous }}{% endif %}">«</a></li>
+  {% for p in paginator.page_range %}
+  <li {% if p == page %}class="active"{% endif %}><a href="/{% if p > 1 %}{{ p }}{% endif %}">{{ p }}</a></li>
+  {% endfor %}
+  <li {% if next > paginator.num_pages %}class="active"{% endif %}><a href="/{{ next }}">»</a></li>
+</ul>
+</div>
+{% endif %}
+
+{# vim:set ft=htmldjango.html tabstop=2 expandtab: #}

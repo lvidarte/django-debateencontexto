@@ -39,10 +39,10 @@
   {% for nota in notas %}
   <div class="titular normal {% if not forloop.first %}separador{% endif %}">
 
-    <header>
+    <div>
       {% bloque_volanta nota %}
       <h2><a href="{{ nota.get_absolute_url }}" title="">{{ nota.titulo }}</a></h2>
-    </header>
+    </div>
 
     {% with nota.get_imagen_titular as imagen %}
       {% if imagen %}
@@ -92,17 +92,7 @@
 
   </div>
 
-  {% if is_paginated %}
-  <footer class="span8 pagination pagination-centered">
-    <ul>
-      <li {% if page < 2 %}class="active"{% endif %}><a href="/{% if previous > 1 %}{{ previous }}{% endif %}">«</a></li>
-      {% for p in paginator.page_range %}
-      <li {% if p == page %}class="active"{% endif %}><a href="/{% if p > 1 %}{{ p }}{% endif %}">{{ p }}</a></li>
-      {% endfor %}
-      <li {% if next > paginator.num_pages %}class="active"{% endif %}><a href="/{{ next }}">»</a></li>
-    </ul>
-  </footer>
-  {% endif %}
+  {% include "revista/bloques/paginador.html" %}
 
 {% endblock %}
 

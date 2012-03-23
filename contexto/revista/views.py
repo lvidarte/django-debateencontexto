@@ -7,8 +7,16 @@ from django.views.generic import list_detail
 
 from contexto.revista.models import Nota, Pagina, Tag
 
-def portada(request, page=0):
+def portada(request, page=1):
     paginate_by = 4
+
+    if page is None:
+        page = 1
+
+    if page == 1:
+        template_name = 'revista/portada.html'
+    else:
+        template_name = 'revista/portada_anteriores.html'
 
     queryset = Nota.objects.published()
     queryset = queryset.order_by('-fecha', 'orden', '-hora')
@@ -18,7 +26,7 @@ def portada(request, page=0):
         queryset=queryset,
         page=page,
         paginate_by=paginate_by,
-        template_name='revista/portada.html',
+        template_name=template_name,
         extra_context={})
 
 def listado_tags(request):

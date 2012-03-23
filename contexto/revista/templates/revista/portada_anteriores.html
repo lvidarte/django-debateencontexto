@@ -1,0 +1,53 @@
+{% extends "revista/container.html" %}
+
+{% block title %}Revista contexto{% endblock %}
+
+{% block head %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+  {% load cache2 revista %}
+
+  <div class="span8">
+  {% for nota in object_list %}
+  <div class="titular normal {% if not forloop.first %}separador{% endif %}">
+
+    <div>
+      {% bloque_volanta nota %}
+      <h2><a href="{{ nota.get_absolute_url }}" title="">{{ nota.titulo }}</a></h2>
+    </div>
+
+    {% with nota.get_imagen_titular as imagen %}
+      {% if imagen %}
+      <div class="row">
+        <div class="span3">
+            <img src="{{ imagen.get_absolute_url|thumb:220 }}" alt="{{ imagen.alt }}" />
+        </div>
+        <div class="span5">
+          {% bloque_autores nota %}
+          {% bloque_copete nota %}
+        </div>
+      </div>
+      {% else %}
+
+      {% bloque_autores nota %}
+      {% bloque_copete nota %}
+      {% endif %}
+    {% endwith %}
+
+  </div>
+  {% endfor %}
+  </div>
+
+  <div class="span4 sidebar">
+
+      hola
+
+  </div>
+
+  {% include "revista/bloques/paginador.html" %}
+
+{% endblock %}
+
+{# vim:set ft=htmldjango.html tabstop=2 expandtab: #}
