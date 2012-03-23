@@ -161,19 +161,22 @@ h3 {
 
 .autores {
     margin: 0;
+    line-height: 1.5em;
 }
 
 .copete, .copete > p {
     margin-top: 0;
 }
 
-.bloque-copete .copete {
+.bloque-copete  {
+    color: #777;
     font-size: 1.1em;
-    margin-bottom: 1em;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .separador {
-    border-top: 1px dashed #ddd;
+    border-top: 2px dashed #ddd;
     margin-top: 16px;
     padding-top: 16px;
 }

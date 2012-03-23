@@ -20,27 +20,28 @@
     <article class="post span8">
 
         <header>
-            {% bloque_volanta nota %}
-            <h1>{{ nota.titulo }}</h1>
+          {% bloque_volanta nota %}
+          <h1>{{ nota.titulo }}</h1>
         </header>
 
         <div class="bloque-copete">
-        {% bloque_copete nota %}
+          {% bloque_copete nota %}
         </div>
 
-        {% bloque_autores nota %}
-        {{ nota.cuerpo|safe }}
+        <div class="cuerpo-nota">
+          {% bloque_autores nota %}
+          {{ nota.cuerpo|safe }}
+        </div>
 
-        <nav>between articles</nav>
 
-        <footer style="margin-top:20px">
+        <div style="margin-top:20px">
 
         {% if nota.permitir_comentarios %}
             <h3>Comentarios</h3>
             <div class="fb-comments" data-href="http://www.revista-contexto.com.ar{{ nota.get_absolute_url }}" data-num-posts="3" data-width="620"></div>
         {% endif %}
 
-        </footer>
+        </div>
 
     </article>
 
