@@ -1,32 +1,30 @@
-{% load cache2 %}
+{% load cache2 revista %}
 
 {% if nota.imagenes_en_galeria_count %}
-<section class="gallery">
-<h5>Galería ({{ nota.imagenes_en_galeria_count }} foto{{ nota.imagenes_en_galeria_count|pluralize }})</h5>
+<div class="gallery">
 
-{% for img in nota.get_imagenes %}
+  {% for img in nota.get_imagenes %}
     {% if img.en_galeria %}
+
     {% if forloop.first %}
     <div class="photo">
-        <a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="gallery[post]">
-            <img src="{{ img.get_absolute_url|thumb:300 }}" alt="{{ img.alt }}" />
-        </a>
+        <a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="gallery[post]"><img src="{{ img.get_absolute_url|thumb:300 }}" alt="{{ img.alt }}" /></a>
         {% if img.epigrafe %}
         <p class="epigrafe">{{ img.epigrafe }}</p>
         {% endif %}
     </div>
+    <div class="row">
     {% else %}
-    <span>
-        <a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="gallery[post]">
-            <img src="{{ img.get_absolute_url|thumb:60 }}" alt="{{ img.alt }}" />
-        </a>
-    </span>
-    {% endif %}
+    <div class="span2">
+        <a href="{{ img.get_absolute_url }}" title="{{ img.epigrafe }}{% if img.autor %} Autor: {{ img.autor }}{% endif %}" rel="gallery[post]"><img src="{{ img.get_absolute_url|thumb:140 }}" alt="{{ img.alt }}" style="margin-top:20px;" /></a>
+    </div>
     {% endif %}
 
-{% endfor %}
-</section>
+    {% endif %}
+  {% endfor %}
+    </div>
+</div>
 {% endif %}
 
 
-{# vim:set ft=htmldjango.html expandtab: #}
+{# vim:set ft=htmldjango.html expandtab tabstop=2: #}
