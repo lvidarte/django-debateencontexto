@@ -8,9 +8,34 @@
 
 {% block content %}
 
+  {% load cache2 %}
+
   <div class="span8">
-    <h3>Notas de {{ autor }}</h3>
+
+    {% with foto=autor.foto %}
+      {% if foto %}
+      <div class="row">
+        <div class="span2">
+          <img src="{{ autor.foto.get_absolute_url|thumb:140 }}" alt="" />
+        </div>
+        <div class="span6">
+            <h3>{{ autor }}</h3>
+            {% if autor.email %}
+            <i class="icon-envelope"></i>&nbsp;<a href="mailto:{{ autor.email }}" title="">{{ autor.email }}</a>
+            {% endif %}
+        </div>
+      </div>
+      {% else %}
+        <h3>{{ autor }}</h3>
+        {% if autor.email %}
+        <i class="icon-envelope"></i>&nbsp;<a href="mailto:{{ autor.email }}" title="">{{ autor.email }}</a>
+        {% endif %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="separador-linea">
     {% include "revista/bloques/titulares.html" %}
+    </div>
   </div>
 
   <div class="span4 sidebar">

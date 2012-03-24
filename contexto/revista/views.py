@@ -8,7 +8,7 @@ from django.views.generic import list_detail
 from contexto.revista.models import Nota, Pagina, Tag, Autor
 
 
-PAGINATE_BY = 4
+PAGINATE_BY = 10
 
 
 def portada(request, page=1):

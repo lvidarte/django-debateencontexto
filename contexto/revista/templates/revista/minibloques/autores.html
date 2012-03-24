@@ -1,6 +1,6 @@
 {% if autores %}
 <p class="autores"><i class="icon-user"></i> Por
-  {% for autor in autores %}{% if not forloop.first %}, {% endif %}<a href="{{ autor.get_absolute_url }}" title="">{{ autor.nombre }}</a>{% endfor %}
+{% for autor in autores %}{% if not forloop.first %}, {% endif %}<a href="{{ autor.get_absolute_url }}" title="">{{ autor.nombre }} {{ autor.apellido }}</a>{% endfor %}
 </p>
 {% endif %}
 {# vim:set ft=htmldjango.html expandtab tabstop=2: #}
