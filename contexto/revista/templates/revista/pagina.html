@@ -3,22 +3,11 @@
 {% block title %}{{ pagina.titulo }}{% endblock %}
 
 {% block content %}
-    <script>
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    </script>
 
     {% load revista %}
     <div class="span8 post">
 
-        <div>
-            <h1>{{ pagina.titulo }}</h1>
-        </div>
+        <h1>{{ pagina.titulo }}</h1>
 
         <div class="bloque-copete">
           {% bloque_copete pagina %}
@@ -33,7 +22,21 @@
         {{ pagina.cuerpo|safe }}
         </div>
 
+        {# Facebook comments #}
         {% if pagina.permitir_comentarios %}
+        <div id="fb-root"></div>
+        <script>
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <div class="separador-puntos">
+          <img src="{{ STATIC_URL }}images/separador.png" alt="" />
+        </div>
         <div class="comentarios">
             <h3>Comentarios</h3>
             <div class="fb-comments" data-href="http://www.revista-contexto.com.ar{{ pagina.get_absolute_url }}" data-num-posts="3" data-width="620"></div>
