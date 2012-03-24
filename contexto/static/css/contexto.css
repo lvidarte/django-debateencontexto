@@ -263,11 +263,30 @@ dd {
 }
 
 /* Notas - Páginas */
-.photo {
+.imagen, .photo {
     background: #666;
+}
+.photo {
     -webkit-border-radius: 0 0 4px 4px;
        -moz-border-radius: 0 0 4px 4px;
             border-radius: 0 0 4px 4px;
+}
+.imagen {
+    margin: 20px 0;
+}
+
+.align-left {
+    float: left;
+    margin: 10px 20px 10px 0;
+}
+
+.align-right {
+    float: right;
+    margin: 10px 0 10px 20px;
+}
+
+.align-center {
+    margin: 20px auto;
 }
 
 .epigrafe {

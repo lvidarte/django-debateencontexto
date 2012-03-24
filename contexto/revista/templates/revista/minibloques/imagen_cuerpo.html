@@ -1,6 +1,6 @@
 {% load cache2 %}
 
-<div class="imagen {{ align }}" {% if align == 'align-right' or align == 'align-left' %}style="width:{% if image_width %}{{ image_width }}{% else %}{{ image.width }}{% endif %}px"{% endif %}>
+<div class="imagen {{ align }}" style="width:{% if image_width %}{{ image_width }}{% else %}{{ image.width }}{% endif %}px">
 
     {% if tokens_count == 1 %}
     <img src="{{ image.get_absolute_url }}" alt="{{ image.alt }}" />
