@@ -6,6 +6,9 @@ body, p {
 body {
     font-size: 16px;
     background-image: url(/static/images/bg_footer.jpg);
+    background-color: #666;
+    background-repeat-x: repeat;
+    background-repeat-y: repeat;
 }
 
 p {
@@ -230,9 +233,6 @@ dd {
 .footer {
   padding: 40px 0;
   color: #fff;
-  background-color: #666;
-  background-repeat-x: repeat;
-  background-repeat-y: repeat;
   text-shadow: #333 0 1px;
   -webkit-box-shadow: inset 0 5px 5px rgba(0,0,0,.2);
      -moz-box-shadow: inset 0 5px 5px rgba(0,0,0,.2);
