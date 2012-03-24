@@ -195,7 +195,11 @@ dd {
     color: #777;
     font-size: 1.1em;
     padding-top: 10px;
-    padding-bottom: 10px;
+}
+
+.separador-puntos {
+    text-align: center;
+    margin: 30px;
 }
 
 .separador {
@@ -215,9 +219,6 @@ dd {
 }
 
 .comentarios {
-    margin-top: 40px;
-    border-top: 2px dashed #ddd;
-    padding-top: 16px;
 }
 
 .paginador {

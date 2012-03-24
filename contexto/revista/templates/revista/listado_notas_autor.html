@@ -10,30 +10,42 @@
 
   {% load cache2 %}
 
-  <div class="span8">
+  <div class="span8 post">
 
+    <div class="well" style="background:#f9f9f9">
     {% with foto=autor.foto %}
       {% if foto %}
       <div class="row">
         <div class="span2">
           <img src="{{ autor.foto.get_absolute_url|thumb:140 }}" alt="" />
         </div>
-        <div class="span6">
-            <h3>{{ autor }}</h3>
+        <div class="span5">
+            <h3>Notas de {{ autor }}</h3>
+            <ul>
             {% if autor.email %}
-            <i class="icon-envelope"></i>&nbsp;<a href="mailto:{{ autor.email }}" title="">{{ autor.email }}</a>
+            <li><i class="icon-envelope"></i>&nbsp;<a href="mailto:{{ autor.email }}" title="">{{ autor.email }}</a></li>
             {% endif %}
+            {% if autor.web %}
+            <li><i class="icon-bookmark"></i>&nbsp;<a href="{{ autor.web }}" title="">{{ autor.web }}</a></li>
+            {% endif %}
+            </ul>
         </div>
       </div>
       {% else %}
-        <h3>{{ autor }}</h3>
+        <h3>Notas de {{ autor }}</h3>
         {% if autor.email %}
-        <i class="icon-envelope"></i>&nbsp;<a href="mailto:{{ autor.email }}" title="">{{ autor.email }}</a>
+        <ul>
+        <li><i class="icon-envelope"></i>&nbsp;<a href="mailto:{{ autor.email }}" title="">{{ autor.email }}</a></li>
         {% endif %}
+        {% if autor.web %}
+        <li><i class="icon-bookmark"></i>&nbsp;<a href="{{ autor.web }}" title="">{{ autor.web }}</a></li>
+        {% endif %}
+        </ul>
       {% endif %}
     {% endwith %}
+    </div>
 
-    <div class="separador-linea">
+    <div>
     {% include "revista/bloques/titulares.html" %}
     </div>
   </div>

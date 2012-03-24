@@ -26,6 +26,11 @@
 
         <div class="bloque-copete">
           {% bloque_copete nota %}
+          {% if nota.copete %}
+          <div class="separador-puntos">
+              <img src="{{ STATIC_URL }}images/separador.png" alt="" />
+          </div>
+          {% endif %}
         </div>
 
         <div class="cuerpo">
@@ -34,9 +39,12 @@
         </div>
 
         {% if nota.permitir_comentarios %}
+        <div class="separador-puntos">
+          <img src="{{ STATIC_URL }}images/separador.png" alt="" />
+        </div>
         <div class="comentarios">
-            <h3>Comentarios</h3>
-            <div class="fb-comments" data-href="http://www.revista-contexto.com.ar{{ nota.get_absolute_url }}" data-num-posts="3" data-width="620"></div>
+          <h3>Comentarios</h3>
+          <div class="fb-comments" data-href="http://www.revista-contexto.com.ar{{ nota.get_absolute_url }}" data-num-posts="3" data-width="620"></div>
         </div>
         {% endif %}
 
