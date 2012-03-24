@@ -1,28 +1,23 @@
 {% extends "revista/container.html" %}
 
-{% block title %}Revista contexto - Notas por tag{% endblock %}
+{% block title %}Revista contexto - Archivo de '{{ tag }}'{% endblock %}
 
 {% block head %}
 {{ block.super }}
 {% endblock %}
 
 {% block content %}
-    {% load cache2 %}
 
-    {% for nota in object_list %}
-    <article>
-        <header>
-            <h2><a href="{{ nota.get_absolute_url }}" title="">{{ nota.titulo }}</a></h2>
-            <time>{{ nota.fecha }}</time>
-        </header>
-        {% with nota.get_imagen_titular as imagen %}
-            {% if imagen %}
-        <img src="{{ imagen.get_absolute_url|thumb:120 }}" alt="{{ imagen.alt }}" />
-            {% endif %}
-        {% endwith %}
-        <p class="copete">{{ nota.copete|safe }}</p>
-    </article>
-    {% endfor %}
+  <div class="span8">
+    <h3>Archivo de '{{ tag }}'</h3>
+    {% include "revista/bloques/titulares.html" %}
+  </div>
+
+  <div class="span4 sidebar">
+  </div>
+
+  {% include "revista/bloques/paginador.html" %}
+
 {% endblock %}
 
-{# vim:set ft=htmldjango.html expandtab: #}
+{# vim:set ft=htmldjango.html expandtab tabstop=2: #}

@@ -5,11 +5,13 @@ from django.http import HttpResponse, Http404
 from django.template import RequestContext
 from django.views.generic import list_detail
 
-from contexto.revista.models import Nota, Pagina, Tag
+from contexto.revista.models import Nota, Pagina, Tag, Autor
+
+
+PAGINATE_BY = 4
+
 
 def portada(request, page=1):
-    paginate_by = 4
-
     if page is None:
         page = 1
 
@@ -25,7 +27,7 @@ def portada(request, page=1):
         request,
         queryset=queryset,
         page=page,
-        paginate_by=paginate_by,
+        paginate_by=PAGINATE_BY,
         template_name=template_name,
         extra_context={})
 
@@ -41,25 +43,44 @@ def listado_tags(request):
     return render_to_response('revista/listado_tags.html', {'tags': tags},
         context_instance=RequestContext(request))
 
-def listado_notas_tag(request, slug, page=0, paginate_by=20, **kwargs):
-    notas = Nota.objects.published().filter(tags__slug=slug).order_by('-fecha')
-    if not notas:
-        raise Http404
-    else:
-        return list_detail.object_list(
-            request,
-            queryset=notas,
-            paginate_by=paginate_by,
-            page=page,
-            template_name='revista/listado_notas_tag.html',
-            **kwargs
-        )
+def listado_notas_tag(request, slug, page=1):
+    if page is None:
+        page = 1
+
+    tag = Tag.objects.get(slug=slug)
+
+    queryset = Nota.objects.published()
+    queryset = queryset.filter(tags__id=tag.id)
+    queryset = queryset.order_by('-fecha', 'orden', '-hora')
+
+    return list_detail.object_list(
+        request,
+        queryset=queryset,
+        paginate_by=PAGINATE_BY,
+        page=page,
+        template_name='revista/listado_notas_tag.html',
+        extra_context={'tag': tag})
 
 def listado_autores(request):
     return HttpResponse('listado de autores')
 
-def listado_notas_autor(request, slug):
-    return HttpResponse('listado de notas por autor ' + slug)
+def listado_notas_autor(request, slug, page=1):
+    if page is None:
+        page = 1
+
+    autor = Autor.objects.get(slug=slug)
+
+    queryset = Nota.objects.published()
+    queryset = queryset.filter(autores__id=autor.id)
+    queryset = queryset.order_by('-fecha', 'orden', '-hora')
+
+    return list_detail.object_list(
+        request,
+        queryset=queryset,
+        paginate_by=PAGINATE_BY,
+        page=page,
+        template_name='revista/listado_notas_autor.html',
+        extra_context={'autor': autor})
 
 def nota(request, year, month, day, slug):
     return render_to_response('revista/nota.html', 

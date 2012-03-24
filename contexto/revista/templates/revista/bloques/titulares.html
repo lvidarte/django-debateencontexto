@@ -1,0 +1,32 @@
+{% load revista cache2 %}
+
+{% for nota in object_list %}
+<div class="titular normal {% if not forloop.first %}separador{% endif %}">
+
+  <div>
+    {% bloque_volanta nota %}
+    <h2><a href="{{ nota.get_absolute_url }}" title="">{{ nota.titulo }}</a></h2>
+  </div>
+
+  {% with nota.get_imagen_titular as imagen %}
+    {% if imagen %}
+    <div class="row">
+      <div class="span3">
+          <img src="{{ imagen.get_absolute_url|thumb:220 }}" alt="{{ imagen.alt }}" />
+      </div>
+      <div class="span5">
+        {% bloque_autores nota %}
+        {% bloque_copete nota %}
+      </div>
+    </div>
+    {% else %}
+
+    {% bloque_autores nota %}
+    {% bloque_copete nota %}
+    {% endif %}
+  {% endwith %}
+
+</div>
+{% endfor %}
+
+{# vim:set ft=htmldjango.html expandtab tabstop=2: #}

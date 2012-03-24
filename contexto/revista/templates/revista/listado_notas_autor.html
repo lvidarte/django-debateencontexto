@@ -1,6 +1,6 @@
 {% extends "revista/container.html" %}
 
-{% block title %}Revista contexto{% endblock %}
+{% block title %}Revista contexto - Notas de {{ autor }}{% endblock %}
 
 {% block head %}
 {{ block.super }}
@@ -9,6 +9,7 @@
 {% block content %}
 
   <div class="span8">
+    <h3>Notas de {{ autor }}</h3>
     {% include "revista/bloques/titulares.html" %}
   </div>
 
@@ -19,4 +20,4 @@
 
 {% endblock %}
 
-{# vim:set ft=htmldjango.html tabstop=2 expandtab: #}
+{# vim:set ft=htmldjango.html expandtab tabstop=2: #}
