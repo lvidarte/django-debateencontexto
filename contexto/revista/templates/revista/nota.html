@@ -17,33 +17,30 @@
     }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <article class="post span8">
+    <div class="post span8">
 
-        <header>
+        <div>
           {% bloque_volanta nota %}
           <h1>{{ nota.titulo }}</h1>
-        </header>
+        </div>
 
         <div class="bloque-copete">
           {% bloque_copete nota %}
         </div>
 
-        <div class="cuerpo-nota">
+        <div class="cuerpo">
           {% bloque_autores nota %}
           {{ nota.cuerpo|safe }}
         </div>
 
-
-        <div style="margin-top:20px">
-
         {% if nota.permitir_comentarios %}
+        <div class="comentarios">
             <h3>Comentarios</h3>
             <div class="fb-comments" data-href="http://www.revista-contexto.com.ar{{ nota.get_absolute_url }}" data-num-posts="3" data-width="620"></div>
+        </div>
         {% endif %}
 
-        </div>
-
-    </article>
+    </div>
 
     <div class="span4 sidebar">
         {% bloque_galeria nota %}

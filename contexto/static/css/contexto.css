@@ -185,13 +185,20 @@ h3 {
     margin-bottom: 10px;
 }
 
+.comentarios {
+    margin-top: 40px;
+    border-top: 2px dashed #ddd;
+    padding-top: 16px;
+}
+
 .pagination {
     margin: 20px 0 0 20px !important;
 }
 
+
 /* footer */
 .footer {
-  margin-top: 40px;
+  margin-top: 20px;
   padding: 20px 0;
   color: #fff;
   background-color: #666;
