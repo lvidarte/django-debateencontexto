@@ -1,5 +1,4 @@
 <!doctype html>
-{% spaceless %}
 <html lang="es">
 <head>
   <meta charset="utf-8">
@@ -12,7 +11,6 @@
   <title>{% block title %}{% endblock %}</title>
 
   <link href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
-  <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" rel="stylesheet">
   <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet">
   <!-- For IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
@@ -34,9 +32,22 @@
 </head>
 <body>
   <div style="background:#fff">
-  <div class="container">
-  {% block container %}{% endblock %}
-  </div>
+      <div style="background:#f0f0f0;margin-bottom:40px">
+          <div class="container" style="height:120px">
+              <div class="logo">
+                <div class="social-icons">
+                  <a href="http://www.facebook.com/pages/Revista-Contexto/108355022626726" title="Seguinos en Facebook"><img src="{{ STATIC_URL }}images/icons/facebook-gray.png" alt="Facebook" /></a>&nbsp;
+                  <a href="http://twitter.com/#!/rcontexto" title="Seguinos en Twitter"><img src="{{ STATIC_URL }}images/icons/twitter-gray.png" alt="Twitter" /></a>&nbsp;
+                  <a href="http://www.youtube.com/user/tvcontexto" title="Seguinos en Youtube"><img src="{{ STATIC_URL }}images/icons/youtube-gray.png" alt="Youtube" /></a>
+                </div>
+                <a href="/" title="Ir a la portada"><img src="{{ STATIC_URL }}images/logo4.png" alt="" /></a>
+              </div>
+          </div>
+      </div>
+
+      <div class="container">
+      {% block container %}{% endblock %}
+      </div>
   </div>
 
   {% block footer %}
@@ -44,5 +55,4 @@
   {% endblock %}
 </body>
 </html>
-{% endspaceless %}
 {# vim:set ft=htmldjango.html expandtab tabstop=2: #}

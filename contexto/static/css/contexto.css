@@ -12,12 +12,12 @@ body {
 }
 
 p {
-    font-size: 1em;
+    font-size: 1.05em;
     line-height: 1.4em;
+    margin: 0 0 20px;
 }
 
 h1, h2, h3, h4, h5, {
-    font-family: 'Open Sans Condensed', sans-serif;
 }
 
 h1 {
@@ -28,14 +28,19 @@ h1 {
 
 h2 {
     font-size: 1.6em;
-    line-height: 1.1em;
+    line-height: 1.2em;
     margin-bottom: .3em;
 }
 
 h3 {
     font-size: 1.2em;
-    line-height: 1.1em;
+    line-height: 1.2em;
     margin-bottom: .5em;
+    color: #555;
+}
+
+ul.no-bullets li {
+    list-style: none;
 }
 
 dt {
@@ -53,7 +58,6 @@ dd {
 /* header */
 .logo {
     margin-top: 20px;
-    margin-bottom: 70px;
 }
 
 .social-icons {
@@ -179,26 +183,48 @@ dd {
         margin-top: 10px;
     }
 
+/* Titulares */
+.titular {
+    padding-bottom: 15px;
+}
+
+.titular:hover {
+    background-color: #f9f9f9;
+}
+
+.titular:hover .copete {
+    color: #333;
+}
+
 .volanta {
     font-weight: normal;
-    font-size: .95em;
-    color: #777;
-    margin-bottom: 2px;
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 5px;
 }
 
 .autores {
     margin: 0;
-    line-height: 1.5em;
+    margin-bottom: 4px;
 }
 
-.copete, .copete > p {
+.copete {
+    color: #555;
+}
+
+.copete > p {
     margin-top: 0;
+    margin-bottom: 8px;
 }
 
 .bloque-copete  {
-    color: #777;
-    font-size: 1.1em;
+    font-size: 1.03em;
     padding-top: 10px;
+}
+
+.bloque-copete .copete {
+    color: #777;
+    text-shadow: #ddd 0 1px;
 }
 
 .separador-puntos {
@@ -207,9 +233,8 @@ dd {
 }
 
 .separador {
-    border-top: 2px dashed #ddd;
-    margin-top: 16px;
-    padding-top: 16px;
+    border-top: 2px dashed #eee;
+    padding-top: 20px;
 }
 
 .separador-linea {
@@ -220,6 +245,15 @@ dd {
 
 .secundario img {
     margin-bottom: 10px;
+}
+
+.carousel-caption a:hover {
+    color: #00aaff;
+}
+
+.carousel-caption .copete p,
+.carousel-caption .volanta {
+    color: #aaa;
 }
 
 .comentarios {
@@ -290,9 +324,9 @@ dd {
 }
 
 .epigrafe {
-    color: #fff;
-    padding: 8px 5px 8px 5px;
-    font-size: .8em;
+    color: #eee;
+    padding: 12px;
+    font-size: .9em;
     margin: 0;
 }
 

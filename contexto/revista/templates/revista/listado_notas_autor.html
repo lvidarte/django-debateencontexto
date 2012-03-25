@@ -21,7 +21,7 @@
         </div>
         <div class="span5">
             <h3>Notas de {{ autor }}</h3>
-            <ul>
+            <ul class="no-bullets">
             {% if autor.email %}
             <li><i class="icon-envelope"></i>&nbsp;<a href="mailto:{{ autor.email }}" title="">{{ autor.email }}</a></li>
             {% endif %}
@@ -34,7 +34,7 @@
       {% else %}
         <h3>Notas de {{ autor }}</h3>
         {% if autor.email %}
-        <ul>
+        <ul class="no-bullets">
         <li><i class="icon-envelope"></i>&nbsp;<a href="mailto:{{ autor.email }}" title="">{{ autor.email }}</a></li>
         {% endif %}
         {% if autor.web %}
