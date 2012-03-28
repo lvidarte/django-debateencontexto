@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+        <script src="galleria-1.2.6.min.js"></script>
+    </head>
+    <body>
+<div id="gallery">
+    <img src="marcha_24_marzo_01.jpg" title="Titulo" alt="sarasa">
+    <img src="marcha_24_marzo_02.jpg" title="Titulo 2" alt="sarasa 2">
+</div>
+        <script>
+            Galleria.loadTheme('themes/twelve/galleria.twelve.min.js');
+            $("#gallery").galleria({
+              width: 940,
+              height: 500,
+              transition: "fade",
+              transitionSpeed: 500,
+              imageCrop: true,
+              _showPopout: false
+            });
+
+        </script>
+    </body>
+</html>
