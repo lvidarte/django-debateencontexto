@@ -1,0 +1,75 @@
+{% extends "revista/container.html" %}
+
+{% block title %}{{ nota.titulo }}{% endblock %}
+
+{% block head %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+  <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
+  <script src="{{ STATIC_URL }}galleria/galleria-1.2.6.min.js"></script>
+  <script src="{{ STATIC_URL }}js/contexto.js"></script>
+{% endblock %}
+
+{% block content %}
+    {% load cache2 revista %}
+
+    <div class="span12 post">
+
+        <div style="text-align:center">
+          {% bloque_volanta nota %}
+          <h1>{{ nota.titulo }}</h1>
+        </div>
+
+        <div class="bloque-copete">
+          {% bloque_copete nota %}
+        </div>
+
+        <div id="gallery" style="margin-top:20px">
+        {% for img in nota.get_imagenes %}
+          {% if img.en_galeria %}
+          <a href="{{ img.get_absolute_url }}"><img src="{{ img.get_absolute_url|thumb:940 }}" alt="{{ img.epigrafe }}" /></a>
+          {% endif %}
+        {% endfor %}
+        </div>
+        <script>
+        Galleria.loadTheme('{{ STATIC_URL }}galleria/themes/twelve/galleria.twelve.min.js');
+        $("#gallery").galleria({
+          width: 940,
+          height: 500,
+          transition: "fade",
+          transitionSpeed: 500,
+          imageCrop: true,
+          _showPopout: false
+        });
+        </script>
+
+        <div class="cuerpo" style="margin-top:20px">
+          {% bloque_autores nota %}
+          {{ nota.cuerpo|safe }}
+        </div>
+
+        {# Facebook comments #}
+        {% if nota.permitir_comentarios %}
+        <div id="fb-root"></div>
+        <script>
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <div class="separador-puntos">
+          <img src="{{ STATIC_URL }}images/separador.png" alt="" />
+        </div>
+        <div class="comentarios" style="width:620px;margin:0 auto;">
+          <h3>Comentarios</h3>
+          <div class="fb-comments" data-href="http://www.revista-contexto.com.ar{{ nota.get_absolute_url }}" data-num-posts="3" data-width="620"></div>
+        </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+{# vim:set ft=htmldjango.html expandtab: #}

@@ -21,6 +21,7 @@ def portada(request, page=1):
         template_name = 'revista/portada_anteriores.html'
 
     queryset = Nota.objects.published()
+    #queryset = queryset.filter(es_galeria=False)
     queryset = queryset.order_by('-fecha', 'orden', '-hora')
 
     return list_detail.object_list(
@@ -83,11 +84,16 @@ def listado_notas_autor(request, slug, page=1):
         extra_context={'autor': autor})
 
 def nota(request, year, month, day, slug):
-    return render_to_response('revista/nota.html', 
-        {'nota': Nota.objects.get(fecha__year=int(year),
-                                  fecha__month=int(month),
-                                  fecha__day=int(day),
-                                  slug=slug)},
+    nota = Nota.objects.get(fecha__year=int(year),
+                            fecha__month=int(month),
+                            fecha__day=int(day),
+                            slug=slug)
+    if nota.es_galeria:
+        template = 'revista/galeria.html'
+    else:
+        template = 'revista/nota.html'
+
+    return render_to_response(template,  {'nota': nota},
         context_instance=RequestContext(request))
 
 def pagina(request, url):
