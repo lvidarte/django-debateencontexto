@@ -1,9 +1,14 @@
 # vim: set fileencoding=utf-8 :
 
 from django.conf.urls.defaults import *
+from contexto.revista.feeds import NotaFeeds
 #from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns('contexto.revista.views',
+
+    (r'^feeds/$',
+     NotaFeeds(), {},
+     'contexto-revista-feeds'),
 
     (r'^autores/$',
      'listado_autores', {},
