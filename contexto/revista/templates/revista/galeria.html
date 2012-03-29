@@ -21,6 +21,7 @@
 
         <div class="bloque-copete">
           {% bloque_copete nota %}
+          {% bloque_autores nota %}
         </div>
 
         <div id="gallery" style="margin-top:20px">
@@ -43,7 +44,6 @@
         </script>
 
         <div class="cuerpo" style="margin-top:20px">
-          {% bloque_autores nota %}
           {{ nota.cuerpo|safe }}
         </div>
 
