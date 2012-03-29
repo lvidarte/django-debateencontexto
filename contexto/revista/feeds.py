@@ -8,9 +8,9 @@ from datetime import datetime
 
 class NotaFeeds(Feed):
     _site = Site.objects.get_current()
-    title = "Contexto. Política y Sociedad."
+    title = "Revista Contexto"
     link = "http://%s" % _site.domain
-    description = "Description Contexto"
+    description = "Política y Sociedad. Actualidad, opinión, contenidos audiovisuales."
 
     def items(self):
         notas = Nota.objects.published()
