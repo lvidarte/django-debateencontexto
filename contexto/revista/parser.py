@@ -3,11 +3,17 @@
 from django.template.loader import render_to_string
 
 
-def parse_tags(text, images):
+# En cada llamada counter.next() devuelve el prox valor de xrange
+counter = iter(xrange(100))
+
+
+def parse_tags(text, files):
     """
     Image:   {{img_name}}
     Resize:  {{img_name size}}
     Thumb:   {{img_name size target_name}}
+
+    Audio:   {{audio path}}
     """
     import re
 
@@ -17,7 +23,7 @@ def parse_tags(text, images):
     for tag in tags:
         align = get_align(tag)
         tokens = tag.strip('{} ').split()
-        html = get_html(tokens, align, images, tags_count)
+        html = get_html(tokens, align, files, tags_count)
         if html:
             text = text.replace(tag, html)
 
@@ -33,12 +39,19 @@ def get_align(tag):
     else:
         return ''
 
-def get_html(tokens, align, images, tags_count):
+def get_html(tokens, align, files, tags_count):
     tokens_count = len(tokens)
     if tokens_count not in (1, 2, 3, 4):
         return
 
-    image = get_image(tokens[0], images)
+    if tokens[0] == '#audio' and tokens_count == 2:
+        file = get_file(tokens[1], files)
+        filepath = tokens[1] if not file else file.get_absolute_url()
+        return render_to_string(
+            'revista/minibloques/audio_cuerpo.html',
+            {'filepath': filepath, 'id': counter.next()})
+
+    image = get_file(tokens[0], files)
     if not image:
         return
 
@@ -48,7 +61,7 @@ def get_html(tokens, align, images, tags_count):
         image_width = int(tokens[1])
 
     if tokens_count > 2:
-        target = get_image(tokens[2], images)
+        target = get_file(tokens[2], files)
         if not target:
             return
         rel = 'gallery' if tags_count == 1 else 'gallery[body]'
@@ -60,24 +73,24 @@ def get_html(tokens, align, images, tags_count):
 
     return render_to_string('revista/minibloques/imagen_cuerpo.html', locals())
 
-def get_html_old(tokens, align, images, tags_count):
+def get_html_old(tokens, align, files, tags_count):
     html = '<div%s>' % (' class="%s"' % align if align else '')
-    image = get_image(tokens[0], images)
+    image = get_file(tokens[0], files)
     if len(tokens) == 1:
         html += '<img src="%s" alt="%s" title="%s" />' % (image.get_absolute_url(), image.alt, image.epigrafe)
     if len(tokens) == 2:
         width = int(tokens[1])
         html += '<img src="/cache/%d%s" alt="%s" title="%s" />' % (width, image.get_absolute_url(), image.alt, image.epigrafe)
     if len(tokens) == 3:
-        image2 = get_image(tokens[2], images)
+        image2 = get_file(tokens[2], files)
         width = int(tokens[1])
         rel = 'prettyPhoto' if tags_count == 1 else 'prettyPhoto[gallery]'
         html += '<a href="%s" title="%s", rel="%s"><img src="/cache/%d%s" alt="%s" title="%s"></a>' % (image2.get_absolute_url(), image2.epigrafe, rel, width, image.get_absolute_url(), image.alt, image.epigrafe)
     html += '</div>'
     return html
 
-def get_image(image_name, images):
-    for image in images:
-        if image.nombre == image_name:
-            return image
+def get_file(file_name, files):
+    for file in files:
+        if file.nombre == file_name:
+            return file
 

@@ -5,6 +5,14 @@
   <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}prettyphoto/js/jquery.prettyPhoto.js"></script>
   <script src="{{ STATIC_URL }}js/contexto.js"></script>
+  <script src="{{ STATIC_URL }}audio/player.js"></script>
+  <script type="text/javascript">
+     AudioPlayer.setup("{{ STATIC_URL }}audio/player.swf", {
+        width: 290,
+        animation: "no",
+        checkpolicy: "no"
+     });
+  </script>
 
   <link href="{{ STATIC_URL }}prettyphoto/css/prettyPhoto.css" rel="stylesheet">
 {% endblock %}

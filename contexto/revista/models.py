@@ -214,7 +214,7 @@ class Nota(models.Model):
 
     @property
     def cuerpo(self):
-        return parse_tags(self.cuerpo_html, self.get_imagenes())
+        return parse_tags(self.cuerpo_html, self.get_archivos())
 
     # Manager
     objects = PublicManager()
@@ -378,7 +378,7 @@ class Pagina(models.Model):
 
     @property
     def cuerpo(self):
-        return parse_tags(self.cuerpo_html, self.get_imagenes())
+        return parse_tags(self.cuerpo_html, self.get_archivos())
 
     # Manager
     objects = PublicManager()
