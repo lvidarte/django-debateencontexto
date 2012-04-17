@@ -34,7 +34,9 @@ JERARQUIA_CHOICES = (
     ('secundaria', 'Secundaria'),
 )
 
-HELP_TEXT_IMAGES = '{{image size full_image full_image_size}}'
+HELP_TEXT_IMAGES = '''{{image size full_image full_image_size}}<br>
+                      {{#audio nombre|url}}
+                   '''
 
 
 class Archivo(models.Model):
@@ -260,7 +262,7 @@ class Nota(models.Model):
     def get_imagenes(self):
         imagenes = []
         for archivo in self.get_archivos():
-            if archivo.es_imagen:
+            if archivo.es_imagen():
                 imagenes.append(archivo)
         return imagenes
 

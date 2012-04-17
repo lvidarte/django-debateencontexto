@@ -2,6 +2,7 @@
 
 from django import template
 from contexto.revista.models import Tag
+from contexto.revista import parser
 
 
 register = template.Library()
@@ -42,6 +43,13 @@ def bloque_autores(nota):
 @register.inclusion_tag('revista/minibloques/copete.html')
 def bloque_copete(nota):
     copete = nota.copete
+    return locals()
+
+@register.inclusion_tag('revista/minibloques/audio.html')
+def bloque_audio(nota):
+    paths = parser.get_audio_paths(
+                nota.cuerpo_html, nota.get_archivos())
+    id = nota.id
     return locals()
 
 @register.filter

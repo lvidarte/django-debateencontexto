@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 from django.template.loader import render_to_string
 
 
@@ -15,9 +16,7 @@ def parse_tags(text, files):
 
     Audio:   {{audio path}}
     """
-    import re
-
-    tags = re.findall('\{\{[^\}]+\}\}', text)
+    tags = get_tags(text)
     tags_count = len(tags)
 
     for tag in tags:
@@ -28,6 +27,10 @@ def parse_tags(text, files):
             text = text.replace(tag, html)
 
     return text
+
+def get_tags(text):
+    tags = re.findall('\{\{[^\}]+\}\}', text)
+    return tags
 
 def get_align(tag):
     if tag[2] == ' ' and tag[-3] == ' ':
@@ -73,7 +76,6 @@ def get_html(tokens, align, files, tags_count):
 
     return render_to_string('revista/minibloques/imagen_cuerpo.html', locals())
 
-def get_html_old(tokens, align, files, tags_count):
     html = '<div%s>' % (' class="%s"' % align if align else '')
     image = get_file(tokens[0], files)
     if len(tokens) == 1:
@@ -93,4 +95,20 @@ def get_file(file_name, files):
     for file in files:
         if file.nombre == file_name:
             return file
+
+def get_audio_paths(text, files):
+    """
+    Audio:   {{audio path}}
+    """
+    paths = []
+    for tag in get_tags(text):
+        tokens = tag.strip('{} ').split()
+        if tokens[0] == '#audio' and len(tokens) == 2:
+            file = get_file(tokens[1], files)
+            if file:
+                paths.append(file.get_absolute_url())
+            else:
+                paths.append(tokens[1])
+
+    return paths
 

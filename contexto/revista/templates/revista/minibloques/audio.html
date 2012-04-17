@@ -1,0 +1,7 @@
+{% for filepath in paths %}
+<div id="audio_{{ id }}_{{ forloop.counter }}"></div>
+<script>
+    AudioPlayer.embed('audio_{{ id }}_{{ forloop.counter }}', {soundFile: '{{ filepath }}'});
+</script>
+{% endfor %}
+{# vim:set ft=htmldjango.html expandtab tabstop=2: #}
