@@ -21,7 +21,7 @@ def portada(request, page=1):
         template_name = 'revista/portada_anteriores.html'
 
     queryset = Nota.objects.published()
-    #queryset = queryset.filter(es_galeria=False)
+    queryset = queryset.filter(es_titular=True)
     queryset = queryset.order_by('-fecha', 'orden', '-hora')
 
     return list_detail.object_list(

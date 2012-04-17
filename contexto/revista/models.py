@@ -197,6 +197,8 @@ class Nota(models.Model):
         choices=SINO_CHOICES, verbose_name='visible')
     jerarquia = models.CharField(max_length=64, default='normal',
         choices=JERARQUIA_CHOICES, verbose_name='jerarquía')
+    es_titular = models.BooleanField(default=True,
+        choices=SINO_CHOICES, verbose_name='es titular')
     relacionadas = models.ManyToManyField('Nota', blank=True, null=True,
         verbose_name='notas relacionadas')
     permitir_comentarios = models.BooleanField(default=True,
