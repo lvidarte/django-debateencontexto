@@ -7,6 +7,18 @@
   <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
   <script src="{{ STATIC_URL }}galleria/galleria-1.2.6.min.js"></script>
   <script src="{{ STATIC_URL }}js/contexto.js"></script>
+  <style type="text/css" media="screen">
+      div.main {
+          background-color: #656565;
+      }
+      div.post p, div.post h1, div.post h2,
+      div.post h3, div.post h4, div.post h5 {
+          color: #f0f0f0;
+      }
+      div.post .copete {
+          text-shadow: #555 0 1px;
+      }
+  </style>
 {% endblock %}
 
 {% block content %}
@@ -64,7 +76,7 @@
         </div>
         <div class="comentarios" style="width:620px;margin:0 auto;">
           <h3>Comentarios</h3>
-          <div class="fb-comments" data-href="http://www.revista-contexto.com.ar{{ nota.get_absolute_url }}" data-num-posts="3" data-width="620"></div>
+          <div class="fb-comments" data-href="http://www.revista-contexto.com.ar{{ nota.get_absolute_url }}" data-num-posts="3" data-width="620" data-colorscheme="dark"></div>
         </div>
         {% endif %}
 

@@ -55,6 +55,10 @@ dd {
     margin-top: 5px;
 }
 
+.main {
+    background-color: #fff;
+}
+
 /* header */
 .logo {
     margin-top: 20px;
