@@ -9,8 +9,8 @@
 {% block content %}
   {% load cache2 revista %}
 
-  {# Destacadas #}
-  {% with notas=object_list|jerarquia:'destacada' %}
+  {# Destacados #}
+  {% with notas=object_list|jerarquia:'destacado' %}
   {% if notas %}
   <div id="myCarousel" class="span12 carousel slide">
     <div class="carousel-inner">
@@ -70,8 +70,8 @@
 
   <div class="span4 sidebar">
 
-    {# Secundarias #}
-    {% with notas=object_list|jerarquia:'secundaria' %}
+    {# Secundarios #}
+    {% with notas=object_list|jerarquia:'secundario' %}
     {% for nota in notas %}
       <div class="titular secundario {% if not forloop.first %}separador{% endif %}">
         {% bloque_volanta nota %}

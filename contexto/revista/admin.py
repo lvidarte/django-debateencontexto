@@ -104,7 +104,7 @@ class NotaAdmin(admin.ModelAdmin):
         }),
         (None, {
             'fields': ('jerarquia', 'es_galeria', 'orden',
-                       'permitir_comentarios', 'es_titular'),
+                       'permitir_comentarios'),
         }),
         ('Tags', {
             'classes': ('collapse', ),

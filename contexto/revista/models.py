@@ -30,8 +30,9 @@ TIPOS_CHOICES = (
 
 JERARQUIA_CHOICES = (
     ('normal', 'Normal'),
-    ('destacada', 'Destacada'),
-    ('secundaria', 'Secundaria'),
+    ('destacado', 'Destacado'),
+    ('secundario', 'Secundario'),
+    ('notitular', 'No es titular'),
 )
 
 HELP_TEXT_IMAGES = '''{{image size full_image full_image_size}}<br>
@@ -196,9 +197,8 @@ class Nota(models.Model):
     estado = models.BooleanField(default=False,
         choices=SINO_CHOICES, verbose_name='visible')
     jerarquia = models.CharField(max_length=64, default='normal',
-        choices=JERARQUIA_CHOICES, verbose_name='jerarquía')
-    es_titular = models.BooleanField(default=True,
-        choices=SINO_CHOICES, verbose_name='es titular')
+        choices=JERARQUIA_CHOICES, verbose_name='jerarquía',
+        help_text='El lugar que ocupará el titular en la portada')
     relacionadas = models.ManyToManyField('Nota', blank=True, null=True,
         verbose_name='notas relacionadas')
     permitir_comentarios = models.BooleanField(default=True,
