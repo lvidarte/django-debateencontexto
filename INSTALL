@@ -1,6 +1,6 @@
-virtualenv --no-site-packages --python=python2.7 dev_env
+virtualenv env
 
-sudo apt-get install python2.6-dev
+sudo apt-get install python2.7-dev
 sudo apt-get install libjpeg8 libjpeg8-dev libfreetype6 libfreetype6-dev
 sudo apt-get install libmysqlclient-dev
 
@@ -14,4 +14,16 @@ FOR PIL:
     sudo ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib
     sudo ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib
 
-pip install django pil markdown MySQL-python
+    # Just do this for i386
+    sudo ln -s /usr/lib/i386-linux-gnu/libjpeg.so /usr/lib
+    sudo ln -s /usr/lib/i386-linux-gnu/libfreetype.so /usr/lib
+    sudo ln -s /usr/lib/i386-linux-gnu/libz.so /usr/lib
+
+    # After install PIL check the following:
+    --- JPEG support available
+    --- ZLIB (PNG/ZIP) support available
+    --- FREETYPE2 support available
+
+
+
+pip install -r requirements.txt
