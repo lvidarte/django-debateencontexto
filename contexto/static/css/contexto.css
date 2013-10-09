@@ -60,6 +60,13 @@ dd {
 }
 
 /* header */
+#header {
+    margin-bottom: 40px;
+    background-color: #f0f0f0;
+    background-image: url(/static/images/bg_top.png);
+    background-position: center bottom;
+}
+
 .logo {
     margin-top: 20px;
 }
